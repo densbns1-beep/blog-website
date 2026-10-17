@@ -930,106 +930,22 @@ button {
   </main>
 </div>
 
-  <script>
+ <script>
 // SUPABASE CONNECTION
 const SUPABASE_URL = "https://xhlewbkbmqrcjudfnkcs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_H3ewt2s9EjrxMd6jNYJiHg_OLg-OgEk";
 
-// LITERATURE TOPICS
-const topics = [
-{
-id:"21st-century-literature",
-title:"21st Century Literature",
-image:"https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=85",
-short:"Explore modern Philippine and world literature in the digital age.",
-description:"21st century literature includes digital texts, blogs, spoken word poetry, graphic narratives, and works shared online. Writers explore identity, technology, culture, inequality, and everyday experiences.\n\nDiscussion question: How does 21st century literature reflect the experiences and issues of people today?"
-},
-{
-id:"pre-colonial-period",
-title:"Pre-Colonial Period",
-image:"https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=85",
-short:"Discover oral traditions, myths, epics, and early Filipino storytelling.",
-description:"Pre-colonial Philippine literature was shared through myths, legends, riddles, proverbs, chants, and epics. These works preserved beliefs, values, history, and community knowledge.\n\nDiscussion question: What can pre-colonial oral literature teach us about the beliefs and way of life of early Filipinos?"
-},
-{
-id:"spanish-period",
-title:"Spanish Period",
-image:"https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=900&q=85",
-short:"Explore religious writings and literature shaped by Spanish colonization.",
-description:"During the Spanish period, literature was influenced by Christianity, colonial rule, and new writing forms. Religious texts, pasyon, awit, corrido, and reformist writings became important.\n\nDiscussion question: How did Spanish colonization influence the themes and purpose of Philippine literature?"
-},
-{
-id:"american-period",
-title:"American Period",
-image:"https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=900&q=85",
-short:"Learn how English education influenced Philippine writing.",
-description:"During the American period, English became an important language of education and literature. Filipino writers explored poetry, short stories, essays, and novels while responding to social and political changes.\n\nDiscussion question: How did the introduction of English affect Filipino writers and literary expression?"
-},
-{
-id:"japanese-period",
-title:"Japanese Period",
-image:"https://images.unsplash.com/photo-1528360983277-13d401dccd2d?auto=format&fit=crop&w=900&q=85",
-short:"Examine literature created during wartime and occupation.",
-description:"During the Japanese occupation, censorship and wartime conditions shaped Philippine literature. Filipino writers used local languages, and forms such as haiku and tanaga gained attention.\n\nDiscussion question: How can literature express the struggles, hopes, and experiences of people during wartime?"
-},
-{
-id:"oral-literature-and-epics",
-title:"Oral Literature and Epics",
-image:"https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=900&q=85",
-short:"Explore stories and poems passed from generation to generation.",
-description:"Oral literature is passed from one generation to another through speaking, singing, and performance. Epics tell of heroes, journeys, values, and community history.\n\nDiscussion question: Why is it important to preserve oral stories and epics in modern society?"
-},
-{
-id:"literature-and-nationalism",
-title:"Literature and Nationalism",
-image:"https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=900&q=85",
-short:"Understand how writing expresses identity and inspires social change.",
-description:"Literature can express love for one's country, question injustice, and encourage reflection on identity and rights. Writers have used poems, essays, stories, and novels to inspire social awareness.\n\nDiscussion question: In what ways can literature help build national identity and encourage change?"
-},
-{
-id:"poetry-across-periods",
-title:"Poetry Across Periods",
-image:"https://images.unsplash.com/photo-1455390582262-044c1d7a5b6e?auto=format&fit=crop&w=900&q=85",
-short:"Compare poetic forms, themes, and voices across literary history.",
-description:"Poetry changes as languages, cultures, and societies change. From oral chants and traditional forms to free verse and spoken word, poets use rhythm, imagery, and emotion to communicate ideas.\n\nDiscussion question: What changes and similarities can you identify in poetry across different periods?"
-},
-{
-id:"novels-and-short-stories",
-title:"Novels and Short Stories",
-image:"https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=85",
-short:"Explore characters, conflicts, and themes in narrative writing.",
-description:"Novels and short stories use characters, settings, and conflicts to explore personal and social experiences. They entertain readers and help them understand different perspectives.\n\nDiscussion question: How can fictional characters and stories help us understand real-life experiences?"
-},
-{
-id:"digital-literature",
-title:"Digital Literature",
-image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85",
-short:"Discover stories, blogs, and creative writing shared online.",
-description:"Digital literature uses technology and online platforms to create and share literary works. Blogs, interactive stories, and online poetry allow writers to reach wider audiences.\n\nDiscussion question: How has technology changed the way people create and read literature?"
-},
-{
-id:"spoken-word-poetry",
-title:"Spoken Word Poetry",
-image:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=85",
-short:"Explore poetry performed through voice, rhythm, and emotion.",
-description:"Spoken word poetry combines written words with performance. Poets often discuss identity, social issues, personal experiences, and emotions.\n\nDiscussion question: How can spoken word poetry communicate messages more powerfully through performance?"
-},
-{
-id:"graphic-literature",
-title:"Graphic Literature",
-image:"https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?auto=format&fit=crop&w=900&q=85",
-short:"Explore storytelling through illustrations, panels, and text.",
-description:"Graphic literature uses images and written language to tell stories. Comics and graphic novels communicate emotions, actions, and themes through visual storytelling.\n\nDiscussion question: How do illustrations help readers understand a story?"
-},
-{
-id:"literature-and-society",
-title:"Literature and Society",
-image:"https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=85",
-short:"Understand how stories reflect culture and human experiences.",
-description:"Literature reflects the values, struggles, and changes within society. Writers explore poverty, discrimination, identity, relationships, and social justice.\n\nDiscussion question: How can literature help people understand social issues and different perspectives?"
-}
-];
+// TOPIC ID MAPPING
+// Numeric IDs must match public.topics in Supabase.
+const topicIdMap = {
+  "21st-century-literature": 1,
+  "pre-colonial-period": 2,
+  "spanish-period": 3,
+  "american-period": 4,
+  "japanese-period": 5
+};
 
+// APP ELEMENTS
 const app = document.getElementById("app");
 const sidebar = document.getElementById("sidebar");
 const mobileToggle = document.getElementById("menuToggle");
@@ -1039,7 +955,7 @@ const searchInput = document.getElementById("searchInput");
 let currentPage = "home";
 let currentTopic = null;
 
-// Safely display user-generated text
+// SAFELY DISPLAY TEXT
 function escapeHTML(value) {
   return String(value ?? "").replace(/[&<>"']/g, char => ({
     "&": "&amp;",
@@ -1050,7 +966,7 @@ function escapeHTML(value) {
   })[char]);
 }
 
-// Topic cards
+// TOPIC CARDS
 function topicCard(topic) {
   return `
     <button class="topic-card" data-topic="${escapeHTML(topic.id)}">
@@ -1067,6 +983,7 @@ function topicCard(topic) {
     </button>`;
 }
 
+// RENDER TOPICS
 function renderTopics() {
   document.getElementById("homeTopics").innerHTML =
     topics.slice(0, 6).map(topicCard).join("");
@@ -1083,7 +1000,7 @@ function renderTopics() {
     `).join("");
 }
 
-// Page navigation
+// PAGE NAVIGATION
 function showPage(page) {
   currentPage = page;
 
@@ -1105,19 +1022,24 @@ function showPage(page) {
     labels[page] || "Home";
 
   document.querySelectorAll(".nav-btn[data-page]").forEach(button => {
-    button.classList.toggle("active", button.dataset.page === page);
+    button.classList.toggle(
+      "active",
+      button.dataset.page === page
+    );
   });
 
   closeMobileMenu();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+// CLOSE MOBILE MENU
 function closeMobileMenu() {
   sidebar.classList.remove("open");
   mobileToggle.setAttribute("aria-expanded", "false");
   mobileToggle.setAttribute("aria-label", "Open navigation");
 }
 
+// OPEN TOPIC
 function openTopic(id) {
   const topic = topics.find(item => item.id === id);
   if (!topic) return;
@@ -1136,52 +1058,58 @@ function openTopic(id) {
   loadComments(topic.id);
 }
 
-// Search
+// SEARCH TOPICS
 function filterTopics(query) {
   const q = query.trim().toLowerCase();
 
   document.querySelectorAll(
     "#homeTopics .topic-card,#allTopics .topic-card"
   ).forEach(card => {
-    const topic = topics.find(item => item.id === card.dataset.topic);
+    const topic = topics.find(
+      item => item.id === card.dataset.topic
+    );
+
     const matches = topic &&
       `${topic.title} ${topic.short}`.toLowerCase().includes(q);
 
     card.classList.toggle("hidden", !matches);
   });
 
-  if (q) {
-    showPage("topics");
-  } else if (currentPage === "topics") {
+  if (q || currentPage === "topics") {
     showPage("topics");
   }
 }
 
-// Supabase REST request helper
+// SUPABASE REQUEST HELPER
 async function supabaseRequest(path, options = {}) {
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-    ...options,
-    headers: {
-      "apikey": SUPABASE_KEY,
-      "Authorization": `Bearer ${SUPABASE_KEY}`,
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      ...(options.headers || {})
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/${path}`,
+    {
+      ...options,
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        ...(options.headers || {})
+      }
     }
-  });
+  );
 
-  const text = await response.text();
+  const responseText = await response.text();
   let data = null;
 
   try {
-    data = text ? JSON.parse(text) : null;
+    data = responseText ? JSON.parse(responseText) : null;
   } catch {
-    data = text;
+    data = responseText;
   }
 
   if (!response.ok) {
     throw new Error(
-      data?.message || data?.hint || data?.details ||
+      data?.message ||
+      data?.hint ||
+      data?.details ||
       `Request failed (${response.status})`
     );
   }
@@ -1189,30 +1117,39 @@ async function supabaseRequest(path, options = {}) {
   return data;
 }
 
-// Load comments for selected topic
+// LOAD COMMENTS
 async function loadComments(topicId) {
   const list = document.getElementById("commentsList");
   const count = document.getElementById("commentCount");
 
-  list.innerHTML = '<div class="empty">Loading comments...</div>';
+  list.innerHTML =
+    '<div class="empty">Loading comments...</div>';
   count.textContent = "Loading...";
 
   try {
+    const dbTopicId = topicIdMap[topicId];
+
+    if (!dbTopicId) {
+      throw new Error(
+        "Topic ID not mapped yet. Add its numeric ID to topicIdMap."
+      );
+    }
+
     const rows = await supabaseRequest(
-      `comments?select=*&topic_id=eq.${encodeURIComponent(topicId)}&order=created_at.desc`
+      `comments?select=*&topic_id=eq.${dbTopicId}&order=created_at.desc`
     );
 
     if (!Array.isArray(rows)) {
       throw new Error("Unexpected response from comments table.");
     }
 
-    // Ignore results if the user has opened another topic
+    // Ignore outdated responses if another topic was opened
     if (!currentTopic || currentTopic.id !== topicId) return;
 
     count.textContent =
       `${rows.length} ${rows.length === 1 ? "comment" : "comments"}`;
 
-    if (!rows.length) {
+    if (rows.length === 0) {
       list.innerHTML = `
         <div class="empty">
           No comments yet. Be the first to share your idea!
@@ -1225,8 +1162,10 @@ async function loadComments(topicId) {
         ? new Date(comment.created_at).toLocaleDateString()
         : "";
 
-      const body = comment.content ?? comment.comment_text ??
-        comment.comment ?? "";
+      const body = comment.content ??
+        comment.comment_text ??
+        comment.comment ??
+        "";
 
       return `
         <article class="comment">
@@ -1242,16 +1181,17 @@ async function loadComments(topicId) {
 
   } catch (error) {
     count.textContent = "Comments unavailable";
+
     list.innerHTML = `
       <div class="empty">
-        Could not load comments. Check the table columns
-        and your Supabase SELECT policy.
+        Could not load comments. Check your table columns
+        and Supabase SELECT policy.
         <br><br>${escapeHTML(error.message)}
       </div>`;
   }
 }
 
-// Post a comment
+// POST COMMENT
 document.getElementById("commentForm").addEventListener(
   "submit",
   async event => {
@@ -1259,13 +1199,25 @@ document.getElementById("commentForm").addEventListener(
 
     if (!currentTopic) return;
 
-    const name = document.getElementById("displayName").value.trim();
-    const content = document.getElementById("commentText").value.trim();
+    const name =
+      document.getElementById("displayName").value.trim();
+
+    const content =
+      document.getElementById("commentText").value.trim();
+
     const button = document.getElementById("postButton");
     const status = document.getElementById("formStatus");
 
     if (!name || !content) {
       status.textContent = "Please complete both fields.";
+      return;
+    }
+
+    const dbTopicId = topicIdMap[currentTopic.id];
+
+    if (!dbTopicId) {
+      status.textContent =
+        "This topic's numeric ID has not been configured yet.";
       return;
     }
 
@@ -1279,7 +1231,7 @@ document.getElementById("commentForm").addEventListener(
           "Prefer": "return=minimal"
         },
         body: JSON.stringify({
-          topic_id: currentTopic.id,
+          topic_id: dbTopicId,
           name: name,
           content: content
         })
@@ -1287,17 +1239,19 @@ document.getElementById("commentForm").addEventListener(
 
       document.getElementById("commentText").value = "";
       status.textContent = "Comment posted!";
+
       await loadComments(currentTopic.id);
 
     } catch (error) {
-      status.textContent = `Could not post: ${error.message}`;
+      status.textContent =
+        `Could not post: ${error.message}`;
     } finally {
       button.disabled = false;
     }
   }
 );
 
-// Handle topic cards and navigation buttons
+// HANDLE TOPIC AND PAGE BUTTONS
 document.addEventListener("click", event => {
   const topicButton = event.target.closest("[data-topic]");
 
@@ -1320,7 +1274,7 @@ document.addEventListener("click", event => {
   }
 });
 
-// Mobile hamburger
+// MOBILE MENU
 mobileToggle.addEventListener("click", () => {
   const open = sidebar.classList.toggle("open");
 
@@ -1331,9 +1285,10 @@ mobileToggle.addEventListener("click", () => {
   );
 });
 
-// Desktop hamburger
+// DESKTOP MENU
 desktopToggle.addEventListener("click", () => {
   const hidden = app.classList.toggle("sidebar-hidden");
+
   desktopToggle.setAttribute("aria-expanded", String(!hidden));
   desktopToggle.setAttribute(
     "aria-label",
@@ -1341,12 +1296,12 @@ desktopToggle.addEventListener("click", () => {
   );
 });
 
-// Live topic search
+// LIVE SEARCH
 searchInput.addEventListener("input", event => {
   filterTopics(event.target.value);
 });
 
-// Start app
+// START APP
 renderTopics();
 showPage("home");
 </script>
