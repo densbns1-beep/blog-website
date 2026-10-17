@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>21st Century Voices | Blog</title>
+<style>
+:root{--bg:#f7f6fc;--surface:#fff;--ink:#25213d;--muted:#77738d;--purple:#6c4ce5;--purple-dark:#4d35b1;--line:#e9e5f6;--soft:#f0ecff;--shadow:0 8px 28px rgba(45,30,100,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+.layout{min-height:100vh;display:grid;grid-template-columns:265px minmax(0,1fr)}
+.sidebar{height:100vh;position:sticky;top:0;overflow-y:auto;background:#fff;border-right:1px solid var(--line);padding:25px 16px;display:flex;flex-direction:column}
+.brand{padding:0 12px 25px;border-bottom:1px solid var(--line);margin-bottom:22px}.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:var(--purple);color:white;font-weight:900;margin-bottom:10px}.brand h1{font-size:1.06rem;line-height:1.3;margin:0}.brand h1 span{color:var(--purple)}.brand p{font-size:.79rem;color:var(--muted);margin:5px 0 0}
+.side-label{font-size:.69rem;letter-spacing:1.5px;font-weight:850;color:#9994b0;padding:0 12px;margin:0 0 10px}.topic-nav{display:grid;gap:5px}.topic-link{display:flex;align-items:center;gap:10px;text-align:left;width:100%;padding:11px 12px;border:0;border-radius:10px;background:transparent;color:#625d79;font:inherit;font-size:.86rem;cursor:pointer;transition:.15s}.topic-link:hover{background:#f7f4ff;color:var(--purple-dark)}.topic-link.active{background:var(--soft);color:var(--purple-dark);font-weight:800}.topic-icon{display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;border-radius:8px;background:#f4f1ff;color:var(--purple);font-size:.78rem;flex-shrink:0}.topic-link.active .topic-icon{background:#ded5ff}.side-bottom{margin-top:auto;padding:20px 12px 0;color:var(--muted);font-size:.77rem}.side-bottom strong{display:block;color:#514777;margin-bottom:4px}
+.main{min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);gap:16px}.topbar-label{font-weight:800;font-size:.92rem}.topbar-label span{color:var(--muted);font-weight:500}.search{width:min(310px,48vw);padding:11px 14px;border:1px solid var(--line);border-radius:11px;background:#faf9ff;font:inherit;font-size:.88rem;outline-color:var(--purple)}
+.content{max-width:1020px;margin:0 auto;padding:clamp(22px,4vw,46px)}.eyebrow{font-size:.73rem;text-transform:uppercase;letter-spacing:1.7px;color:var(--purple);font-weight:850}.content h2{font-size:clamp(1.8rem,4vw,2.65rem);line-height:1.15;margin:9px 0 12px;letter-spacing:-.7px}.intro{color:var(--muted);max-width:760px;margin:0 0 25px;font-size:1rem}.topic-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 24px}.pill{border-radius:999px;background:#eee9ff;color:var(--purple-dark);padding:5px 10px;font-size:.75rem;font-weight:800}.meta-text{font-size:.8rem;color:var(--muted)}
+.prompt{padding:20px 22px;background:linear-gradient(120deg,#eee9ff,#f9f7ff);border:1px solid #e0d8ff;border-radius:15px;margin-bottom:30px}.prompt small{font-weight:850;text-transform:uppercase;letter-spacing:1px;color:var(--purple);font-size:.7rem}.prompt p{font-size:1.08rem;font-weight:750;margin:8px 0 0}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 15px}.section-head h3{margin:0;font-size:1.2rem}.count{font-size:.8rem;color:var(--muted)}.comments{display:grid;gap:12px;margin-bottom:28px}.comment{background:white;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}.comment-top{display:flex;justify-content:space-between;gap:12px;align-items:center}.comment-name{font-weight:850;font-size:.92rem}.comment-date{font-size:.75rem;color:var(--muted)}.comment p{margin:8px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}.empty{padding:25px;text-align:center;background:#fff;border:1px dashed #cfc6f1;border-radius:14px;color:var(--muted)}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:21px;box-shadow:var(--shadow)}.form-card h3{margin:0 0 4px;font-size:1.15rem}.form-card>p{margin:0 0 16px;color:var(--muted);font-size:.87rem}.form{display:grid;gap:13px}.form label{font-size:.85rem;font-weight:750}.form input,.form textarea{display:block;width:100%;margin-top:6px;border:1px solid #ddd7ef;border-radius:10px;padding:12px 13px;font:inherit;background:#fdfcff;outline-color:var(--purple)}.form textarea{min-height:115px;resize:vertical}.form button{justify-self:start;border:0;border-radius:10px;padding:12px 18px;background:var(--purple);color:#fff;font:inherit;font-weight:800;cursor:pointer}.form button:hover{background:var(--purple-dark)}.form-note{font-size:.77rem!important;color:var(--muted)!important;margin:0!important}.footer{padding:26px 0 5px;text-align:center;font-size:.78rem;color:var(--muted)}
+.no-results{padding:15px 12px;color:var(--muted);font-size:.85rem}
+.mobile-menu{display:none;border:0;background:var(--soft);color:var(--purple-dark);border-radius:9px;padding:9px 11px;font-weight:800}
+@media(max-width:850px){.layout{grid-template-columns:225px minmax(0,1fr)}.sidebar{padding:20px 11px}.topic-link{font-size:.8rem;padding:10px 9px}.content{padding:25px 22px}}
+@media(max-width:650px){.layout{display:block}.sidebar{position:relative;height:auto;max-height:none;padding:15px 16px;border-right:0;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:10px;padding:0 2px 14px;margin-bottom:13px}.brand-mark{margin:0;flex-shrink:0}.brand p{display:none}.brand h1{font-size:1rem}.side-label{padding:0 2px;margin-bottom:7px}.topic-nav{display:flex;overflow-x:auto;padding-bottom:5px;gap:7px}.topic-link{width:auto;white-space:nowrap;flex-shrink:0;background:#f8f6ff;padding:8px 10px}.topic-link.active{background:var(--soft)}.topic-icon{width:22px;height:22px}.side-bottom{display:none}.topbar{height:64px;padding:0 16px}.topbar-label{font-size:.82rem}.search{width:54%;padding:9px 10px}.content{padding:25px 16px}.prompt{padding:17px}.form-card{padding:17px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">21</div>
+      <div><h1>21st Century <span>Voices</span></h1><p>A blog for curious minds</p></div>
+    </div>
+    <div class="side-label">EXPLORE TOPICS</div>
+    <nav class="topic-nav" id="topicNav" aria-label="Blog topics"></nav>
+    <div class="side-bottom"><strong>Every voice matters.</strong>Read, reflect, and share your ideas respectfully.</div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-label">Community Blog <span>/ Discussions</span></div>
+      <input class="search" id="search" type="search" placeholder="Search topics..." aria-label="Search topics">
+    </div>
+    <div class="content">
+      <div class="eyebrow" id="topicCategory">Technology</div>
+      <h2 id="topicTitle">Technology in Everyday Life</h2>
+      <p class="intro" id="topicDescription"></p>
+      <div class="topic-meta"><span class="pill">21st Century Topic</span><span class="meta-text" id="topicCommentMeta"></span></div>
+      <section class="prompt"><small>Read &amp; reflect</small><p id="topicBody"></p></section>
+      <section>
+        <div class="section-head"><h3>Community ideas</h3><span class="count" id="commentCount">Connecting to online comments…</span></div>
+        <p id="connectionStatus" class="form-note" style="margin:-8px 0 14px!important">Online comments require your Supabase project settings.</p>
+        <div class="comments" id="commentList"></div>
+      </section>
+      <section class="form-card">
+        <h3>Share your idea</h3>
+        <p>Add your perspective to the discussion. Be thoughtful and respectful.</p>
+        <form class="form" id="commentForm">
+          <label>Your name<input id="commentName" maxlength="40" placeholder="Enter a display name" required></label>
+          <label>Your comment<textarea id="commentText" maxlength="1000" placeholder="What do you think about this topic?" required></textarea></label>
+          <button type="submit">Post comment</button>
+          <p class="form-note">Comments are saved in this browser on this device. A shared online database is needed for comments to appear for every visitor.</p>
+        </form>
+      </section>
+      <div class="footer">21st Century Voices · Learn, think, and share respectfully.</div>
+    </div>
+  </main>
+</div>
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+// STEP 1: Replace these two placeholders with your Supabase project details.
+const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+const supabaseConfigured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
+const supabase = supabaseConfigured ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+const topics=[
+{id:"21st-century",icon:"01",category:"21st Century Literature",title:"21st Century Literature",description:"Explore modern Philippine and world literature in the digital age.",prompt:"How does 21st century literature reflect the experiences and issues of people today?",body:"21st century literature includes contemporary forms and styles such as digital texts, blogs, spoken word poetry, graphic narratives, and works shared online. Writers explore identity, technology, culture, inequality, and everyday experiences. Discussion question: How does 21st century literature reflect the experiences and issues of people today?"},
+{id:"pre-colonial",icon:"02",category:"Philippine Literary Periods",title:"Pre-Colonial Period",description:"Oral traditions, epics, riddles, proverbs, chants, and folk songs.",prompt:"Why is it important to preserve the oral literature and traditions of early Filipinos?",body:"Before Spanish colonization, early Filipinos shared stories and knowledge through oral traditions. These included myths, legends, epics, riddles (bugtong), proverbs (salawikain), chants, and folk songs. Much of this literature reflected community values, beliefs, nature, and daily life. Discussion question: Why is it important to preserve the oral literature and traditions of early Filipinos?"},
+{id:"spanish",icon:"03",category:"Philippine Literary Periods",title:"Spanish Period",description:"Religious writing, pasyon, awit, korido, and literature of resistance.",prompt:"How did Spanish colonization influence Philippine literature and Filipino identity?",body:"During the Spanish period, literature was strongly influenced by Christianity and Spanish culture. Religious texts, pasyon, awit, korido, and plays became common. Later, Filipino writers used essays, novels, and poems to criticize abuses and inspire reform and nationalism. Discussion question: How did Spanish colonization influence Philippine literature and Filipino identity?"},
+{id:"american",icon:"04",category:"Philippine Literary Periods",title:"American Period",description:"The rise of English-language writing, free verse, short stories, and essays.",prompt:"What changed in Philippine literature when English became widely used during the American period?",body:"During the American period, English became a major language of instruction and literary expression. Filipino writers developed poetry, short stories, essays, and novels in English, while literature in Filipino and other local languages also continued to grow. Print publications and education helped new forms reach more readers. Discussion question: What changed in Philippine literature when English became widely used during the American period?"},
+{id:"japanese",icon:"05",category:"Philippine Literary Periods",title:"Japanese Period",description:"Wartime writing, poetry in Filipino, haiku, and short forms.",prompt:"How can literature express hope, fear, and resistance during a time of war?",body:"During the Japanese occupation of the Philippines in World War II, publication in English was restricted, and writing in Filipino and other local languages became more prominent. Short forms such as haiku gained attention, while writers expressed hardship, patriotism, fear, and hope under wartime conditions. Discussion question: How can literature express hope, fear, and resistance during a time of war?"},
+{id:"oral-traditions",icon:"06",category:"Literary Forms",title:"Oral Literature and Epics",description:"Discover how stories, chants, and epics pass culture between generations.",prompt:"What can traditional epics teach modern readers about Filipino values and beliefs?",body:"Oral literature is shared by speaking, singing, or performing rather than only through written texts. Philippine epics such as the Hudhud of the Ifugao and the Darangen of the Maranao preserve cultural knowledge, ideals, and community memory. Discussion question: What can traditional epics teach modern readers about Filipino values and beliefs?"},
+{id:"nationalism",icon:"07",category:"Literature & Society",title:"Literature and Nationalism",description:"How writers used words to question injustice and inspire change.",prompt:"Can literature influence society or inspire people to take action? Explain your view.",body:"Literature has often given writers a way to question injustice, express a shared identity, and encourage social change. During the Spanish period, reformist and nationalist works helped readers think critically about colonial rule and the future of the Philippines. Discussion question: Can literature influence society or inspire people to take action? Explain your view."},
+{id:"poetry",icon:"08",category:"Literary Forms",title:"Poetry Across Periods",description:"Compare traditional chants, tanaga, haiku, and contemporary spoken word.",prompt:"How does the form of a poem affect the way its message is understood?",body:"Philippine poetry has changed across historical periods, from oral chants and traditional forms such as tanaga to haiku popularized during the Japanese occupation and modern spoken word. Each form uses rhythm, imagery, and concise language in different ways. Discussion question: How does the form of a poem affect the way its message is understood?"},
+{id:"novels",icon:"09",category:"Literary Forms",title:"Novels and Short Stories",description:"Explore how fiction reflects history, identity, and everyday life.",prompt:"Why do authors use fictional characters and stories to discuss real social problems?",body:"Novels and short stories can reveal social conditions, personal struggles, and historical change through characters and imagined events. Philippine writers across periods have used fiction to explore identity, injustice, family, community, and the effects of colonization. Discussion question: Why do authors use fictional characters and stories to discuss real social problems?"},
+{id:"digital-literature",icon:"10",category:"21st Century Literature",title:"Digital and Contemporary Literature",description:"Blogs, hypertext fiction, online poetry, and stories on digital platforms.",prompt:"Does sharing literature online make reading and writing more accessible? What challenges come with it?",body:"Digital literature may be published through websites, blogs, social media, e-books, and interactive formats. These platforms help writers reach audiences quickly, but readers must also consider credibility, copyright, accessibility, and how technology changes the reading experience. Discussion question: Does sharing literature online make reading and writing more accessible? What challenges come with it?"}
+]
+let activeTopicId="21st-century";
+const nav=document.getElementById("topicNav");
+let commentsCache = {};
+let realtimeChannel = null;
+
+function setStatus(message, isError=false){
+ const el=document.getElementById("connectionStatus");
+ el.textContent=message;
+ el.style.color=isError ? "#b42318" : "";
+}
+function formatDate(value){
+ const date = new Date(value);
+ return Number.isNaN(date.getTime()) ? "" : date.toLocaleString();
+}
+function renderNav(filter=""){
+ const q=filter.trim().toLowerCase(),matching=topics.filter(t=>(t.title+" "+t.category+" "+t.description).toLowerCase().includes(q));
+ nav.innerHTML="";
+ if(!matching.length){const n=document.createElement("div");n.className="no-results";n.textContent="No matching topics";nav.appendChild(n);return}
+ matching.forEach(t=>{
+  const b=document.createElement("button");b.type="button";b.className="topic-link"+(t.id===activeTopicId?" active":"");b.setAttribute("aria-current",t.id===activeTopicId?"page":"false");
+  const icon=document.createElement("span");icon.className="topic-icon";icon.textContent=t.icon;
+  const label=document.createElement("span");label.textContent=t.title;
+  b.append(icon,label);b.addEventListener("click",()=>selectTopic(t.id));nav.appendChild(b);
+ });
+}
+function selectTopic(id){
+ activeTopicId=id;const t=topics.find(x=>x.id===id);if(!t)return;
+ document.getElementById("topicCategory").textContent=t.category;
+ document.getElementById("topicTitle").textContent=t.title;
+ document.getElementById("topicDescription").textContent=t.description;
+ document.getElementById("topicBody").textContent=t.body+" "+t.prompt;
+ renderNav(document.getElementById("search").value);renderComments();
+ if(window.innerWidth<=650)document.querySelector(".main").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function renderComments(){
+ const comments=commentsCache[activeTopicId]||[],list=document.getElementById("commentList");
+ document.getElementById("commentCount").textContent=comments.length+" comment"+(comments.length===1?"":"s");
+ document.getElementById("topicCommentMeta").textContent=comments.length+" community idea"+(comments.length===1?"":"s");
+ list.innerHTML="";
+ if(!comments.length){const empty=document.createElement("div");empty.className="empty";empty.textContent="No comments yet. Be the first to share your idea!";list.appendChild(empty);return}
+ comments.forEach(c=>{
+  const item=document.createElement("article");item.className="comment";
+  const top=document.createElement("div");top.className="comment-top";
+  const name=document.createElement("span");name.className="comment-name";name.textContent=c.name;
+  const date=document.createElement("span");date.className="comment-date";date.textContent=formatDate(c.created_at);
+  const body=document.createElement("p");body.textContent=c.comment;
+  top.append(name,date);item.append(top,body);list.appendChild(item);
+ });
+}
+async function loadComments(){
+ if(!supabase){setStatus("Not connected yet: add your Supabase URL and anon key in this file.",true);commentsCache={};renderComments();return}
+ setStatus("Loading comments from the shared online database…");
+ const {data,error}=await supabase.from("topic_comments").select("id,topic_id,name,comment,created_at").order("created_at",{ascending:true});
+ if(error){setStatus("Could not load online comments: "+error.message,true);return}
+ commentsCache={};
+ (data||[]).forEach(c=>{if(!commentsCache[c.topic_id])commentsCache[c.topic_id]=[];commentsCache[c.topic_id].push(c)});
+ renderComments();
+ setStatus("Connected: comments are shared across devices.");
+}
+function subscribeToComments(){
+ if(!supabase || realtimeChannel)return;
+ realtimeChannel=supabase.channel("public-topic-comments")
+  .on("postgres_changes",{event:"*",schema:"public",table:"topic_comments"},payload=>{
+   const row=payload.new;
+   if(row && row.topic_id){
+    if(!commentsCache[row.topic_id])commentsCache[row.topic_id]=[];
+    if(payload.eventType==="INSERT" && !commentsCache[row.topic_id].some(c=>c.id===row.id))commentsCache[row.topic_id].push(row);
+    if(payload.eventType==="UPDATE")commentsCache[row.topic_id]=commentsCache[row.topic_id].map(c=>c.id===row.id?row:c);
+    if(payload.eventType==="DELETE")commentsCache[row.topic_id]=commentsCache[row.topic_id].filter(c=>c.id!==payload.old.id);
+   }
+   renderComments();
+  }).subscribe();
+}
+document.getElementById("search").addEventListener("input",e=>renderNav(e.target.value));
+document.getElementById("commentForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const name=document.getElementById("commentName").value.trim(),comment=document.getElementById("commentText").value.trim();
+ if(!name||!comment)return;
+ if(!supabase){setStatus("Comments are not online yet. Set up Supabase first.",true);return}
+ const button=e.currentTarget.querySelector("button[type=submit]");
+ button.disabled=true;button.textContent="Posting…";
+ const {error}=await supabase.from("topic_comments").insert({topic_id:activeTopicId,name,comment});
+ button.disabled=false;button.textContent="Post comment";
+ if(error){setStatus("Could not post comment: "+error.message,true);return}
+ document.getElementById("commentText").value="";
+ setStatus("Your comment was posted for everyone to see.");
+ await loadComments();
+});
+selectTopic(activeTopicId);
+await loadComments();
+subscribeToComments();
+</script>
+</body>
+</html>
