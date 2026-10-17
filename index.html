@@ -5,208 +5,733 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#6d4aff">
 <title>21st Century Voices | Literature Community</title>
+
 <style>
-:root{--purple:#6d4aff;--purple-dark:#5031d4;--pale:#f0ebff;--bg:#f7f6fc;--text:#28263a;--muted:#77758b;--border:#e8e5f1;--white:#fff;--shadow:0 8px 28px rgba(39,28,89,.06)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh}.mobile-top{display:none}.desktop-menu-toggle{display:block}.sidebar{position:fixed;inset:0 auto 0 0;width:245px;background:#fff;border-right:1px solid var(--border);padding:24px 18px;overflow:auto;z-index:20}.brand{display:flex;align-items:center;gap:11px;padding:0 6px 22px;border-bottom:1px solid var(--border)}.brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--purple);color:#fff;font-weight:800}.brand-name{font-weight:800;letter-spacing:-.3px}.brand-sub{font-size:12px;color:var(--muted)}.nav-label{margin:22px 7px 10px;color:#9895aa;font-size:10px;letter-spacing:1.7px;font-weight:800}.nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:11px 10px;margin:4px 0;border:0;border-radius:11px;background:transparent;color:#67647b;text-align:left;font-size:13px}.nav-btn:hover,.nav-btn.active{background:var(--pale);color:var(--purple-dark);font-weight:700}.nav-icon{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#f2efff;color:var(--purple);font-size:11px;font-weight:800;flex-shrink:0}.main{margin-left:245px;min-height:100vh;transition:margin-left .2s}.sidebar.collapsed{transform:translateX(-100%)}.sidebar{transition:transform .2s}.app.sidebar-hidden .main{margin-left:0}.topbar{height:68px;background:rgba(255,255,255,.94);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 30px;position:sticky;top:0;z-index:10}.desktop-menu-toggle{width:39px;height:39px;flex-shrink:0;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:19px}.topbar-left{display:flex;align-items:center;gap:14px;min-width:0}.crumb{font-size:12px;color:var(--muted)}.crumb strong{color:var(--text)}.search{width:min(300px,40%);padding:10px 13px;border:1px solid var(--border);border-radius:10px;background:#faf9ff;outline:none;font-size:12px}.search:focus,.field:focus{border-color:var(--purple);box-shadow:0 0 0 3px #6d4aff18}.content{max-width:1100px;padding:32px;margin:0 auto}.eyebrow{color:var(--purple);font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.page-title{font-size:clamp(27px,3vw,38px);line-height:1.2;letter-spacing:-1.1px;margin:7px 0 9px}.lead{margin:0;color:var(--muted);font-size:14px}.hero{padding:28px;border:1px solid #e6defe;border-radius:18px;background:linear-gradient(120deg,#f0eaff,#fff 75%);margin:24px 0;display:flex;align-items:center;justify-content:space-between;gap:20px}.hero h2{font-size:22px;line-height:1.3;margin:7px 0}.hero p{margin:0;color:var(--muted);max-width:580px;font-size:13px}.hero-mark{font-size:42px;color:var(--purple);font-weight:800;flex-shrink:0}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 14px}.section-head h2{font-size:18px;margin:0}.muted{color:var(--muted);font-size:12px}.topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.topic-card{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;background:#fff;border:1px solid var(--border);border-radius:15px;text-align:left;color:inherit;box-shadow:0 3px 14px #24145b04;transition:transform .15s,border-color .15s;min-width:0}.topic-card:hover{transform:translateY(-2px);border-color:#c8baff}.topic-image{display:block;width:100%;height:150px;object-fit:cover;background:#e8e2fa}.topic-card-copy{display:block;padding:15px}.topic-card-copy h3{font-size:14px;margin:9px 0 5px}.topic-card-copy p{font-size:12px;color:var(--muted);margin:0}.topic-num{display:inline-grid;place-items:center;min-width:31px;height:27px;padding:0 7px;background:var(--pale);color:var(--purple-dark);border-radius:8px;font-size:11px;font-weight:800}.topic-card h3{font-size:14px;margin:1px 0 5px}.topic-card p{font-size:12px;color:var(--muted);margin:0}.panel{background:#fff;border:1px solid var(--border);border-radius:15px;padding:20px;box-shadow:var(--shadow);margin:16px 0}.panel h2,.panel h3{margin:0 0 8px}.reading-label{color:var(--purple);font-size:10px;font-weight:800;letter-spacing:1px}.reading-text{font-size:13px;white-space:pre-line;margin:8px 0 0}.comments{display:grid;gap:12px}.comment{background:#fff;border:1px solid var(--border);border-radius:13px;padding:16px}.comment-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}.comment-name{font-weight:750;font-size:12px}.comment-date{font-size:10px;color:var(--muted)}.comment-body{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}.form-grid{display:grid;gap:12px}.field{width:100%;border:1px solid var(--border);border-radius:10px;padding:11px 12px;background:#fff;outline:none;font-size:13px}.field-label{display:block;font-size:11px;font-weight:750;margin-bottom:5px}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;background:var(--purple);color:#fff;padding:11px 16px;font-weight:700;font-size:12px}.btn:hover{background:var(--purple-dark)}.btn:disabled{opacity:.55;cursor:wait}.status{font-size:12px;color:var(--muted);min-height:18px}.empty{padding:22px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--border);border-radius:12px;font-size:13px}.maker-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.maker-card{padding:22px;background:#fff;border:1px solid var(--border);border-radius:15px}.maker-avatar{display:grid;place-items:center;width:48px;height:48px;background:var(--pale);color:var(--purple-dark);border-radius:14px;font-weight:800;font-size:18px;margin-bottom:14px}.maker-card h3{margin:0 0 5px}.maker-card p{margin:0;color:var(--muted);font-size:13px}.footer{text-align:center;color:#9895aa;font-size:11px;padding:25px 0 8px}.hidden{display:none!important}.back-btn{border:0;background:transparent;color:var(--purple-dark);font-weight:750;padding:0;margin:0 0 18px;font-size:12px}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--pale);color:var(--purple-dark);font-size:10px;font-weight:750}
-@media(min-width:1200px){.content{padding:38px 42px}.topic-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.topic-image{height:175px}}
-@media(max-width:760px){.desktop-menu-toggle{display:none}.sidebar{display:none;top:60px;bottom:0;width:min(290px,85vw);box-shadow:12px 0 35px #17102b20}.sidebar.open{display:block}.mobile-top{display:flex;height:60px;align-items:center;justify-content:space-between;padding:0 16px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:30}.mobile-brand{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:800}.mobile-brand .brand-mark{width:34px;height:34px;border-radius:10px}.menu-toggle{width:39px;height:39px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:19px}.main{margin-left:0}.topbar{top:60px;height:55px;padding:0 16px}.crumb{font-size:11px}.search{width:48%;padding:9px;font-size:11px}.content{padding:23px 16px}.hero{padding:20px;margin:19px 0;align-items:flex-start}.hero h2{font-size:19px}.hero-mark{font-size:30px}.topic-grid,.maker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topic-image{height:115px}.topic-card-copy{padding:12px}.panel{padding:16px}.section-head{margin-top:24px}.page-title{font-size:29px}}
-@media(min-width:761px) and (max-width:950px){.sidebar{width:215px;padding:20px 13px}.main{margin-left:215px}.content{padding:25px 22px}.topic-grid{grid-template-columns:1fr}}
-@media(max-width:420px){.topic-grid,.maker-grid{grid-template-columns:1fr}.topic-image{height:165px}.hero{display:block}.hero-mark{display:none}.topbar{gap:8px}.search{width:52%}.page-title{font-size:27px}}
+:root {
+  --purple: #6d4aff;
+  --purple-dark: #5031d4;
+  --pale: #f0ebff;
+  --bg: #f7f6fc;
+  --text: #28263a;
+  --muted: #77758b;
+  --border: #e8e5f1;
+  --white: #fff;
+  --shadow: 0 8px 28px rgba(39,28,89,.06);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 Inter, system-ui, sans-serif;
+}
+
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.hidden { display: none !important; }
+
+.app { min-height: 100vh; }
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 245px;
+  background: white;
+  border-right: 1px solid var(--border);
+  padding: 24px 18px;
+  overflow: auto;
+  z-index: 20;
+  transition: transform .2s;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 6px 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: var(--purple);
+  color: white;
+  font-weight: 800;
+}
+
+.brand-name { font-weight: 800; }
+.brand-sub { font-size: 12px; color: var(--muted); }
+
+.nav-label {
+  margin: 22px 7px 10px;
+  color: #9895aa;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  font-weight: 800;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 10px;
+  margin: 4px 0;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: #67647b;
+  text-align: left;
+  font-size: 13px;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: var(--pale);
+  color: var(--purple-dark);
+  font-weight: 700;
+}
+
+.nav-icon {
+  display: grid;
+  place-items: center;
+  min-width: 25px;
+  height: 25px;
+  border-radius: 8px;
+  background: #f2efff;
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.main {
+  margin-left: 245px;
+  min-height: 100vh;
+  transition: margin-left .2s;
+}
+
+.sidebar.collapsed { transform: translateX(-100%); }
+.app.sidebar-hidden .main { margin-left: 0; }
+
+.mobile-top { display: none; }
+
+.topbar {
+  height: 68px;
+  background: rgba(255,255,255,.96);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 30px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.desktop-menu-toggle {
+  width: 39px;
+  height: 39px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+}
+
+.crumb { font-size: 12px; color: var(--muted); }
+.crumb strong { color: var(--text); }
+
+.search {
+  width: min(300px, 40%);
+  padding: 10px 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #faf9ff;
+  outline: none;
+}
+
+.content {
+  max-width: 1100px;
+  padding: 32px;
+  margin: auto;
+}
+
+.eyebrow {
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.page-title {
+  font-size: clamp(27px, 3vw, 38px);
+  line-height: 1.2;
+  margin: 7px 0 9px;
+}
+
+.lead { margin: 0; color: var(--muted); font-size: 14px; }
+
+.hero {
+  padding: 28px;
+  border: 1px solid #e6defe;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #f0eaff, white 75%);
+  margin: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hero h2 { font-size: 22px; margin: 7px 0; }
+.hero p { color: var(--muted); font-size: 13px; }
+
+.hero-mark img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 28px 0 14px;
+}
+
+.section-head h2 { font-size: 18px; margin: 0; }
+
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  text-align: left;
+  color: inherit;
+  min-width: 0;
+}
+
+.topic-card:hover { border-color: #c8baff; }
+
+.topic-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background: #e8e2fa;
+}
+
+.topic-card-copy { padding: 15px; }
+.topic-card-copy h3 { font-size: 14px; margin: 9px 0 5px; }
+.topic-card-copy p { font-size: 12px; color: var(--muted); margin: 0; }
+
+.topic-num {
+  display: inline-grid;
+  place-items: center;
+  min-width: 31px;
+  height: 27px;
+  padding: 0 7px;
+  background: var(--pale);
+  color: var(--purple-dark);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin: 16px 0;
+}
+
+.panel h2, .panel h3 { margin: 0 0 8px; }
+
+.reading-label {
+  color: var(--purple);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.reading-text { font-size: 13px; white-space: pre-line; }
+
+.comments { display: grid; gap: 12px; }
+
+.comment {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 16px;
+}
+
+.comment-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.comment-name { font-weight: 750; font-size: 12px; }
+.comment-date { font-size: 10px; color: var(--muted); }
+.comment-body { font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.form-grid { display: grid; gap: 12px; }
+
+.field {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 12px;
+  background: white;
+  outline: none;
+  font-size: 13px;
+}
+
+.field:focus { border-color: var(--purple); }
+
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 750;
+  margin-bottom: 5px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  background: var(--purple);
+  color: white;
+  padding: 11px 16px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.btn:hover { background: var(--purple-dark); }
+.btn:disabled { opacity: .55; cursor: wait; }
+
+.status { font-size: 12px; color: var(--muted); min-height: 18px; }
+.empty { padding: 22px; text-align: center; color: var(--muted); background: white; border: 1px dashed var(--border); border-radius: 12px; }
+.maker-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.maker-card { padding: 22px; background: white; border: 1px solid var(--border); border-radius: 15px; }
+.maker-avatar { display: grid; place-items: center; width: 48px; height: 48px; background: var(--pale); color: var(--purple-dark); border-radius: 14px; font-weight: 800; font-size: 18px; margin-bottom: 14px; }
+.maker-card h3 { margin: 0 0 5px; }
+.maker-card p { margin: 0; color: var(--muted); font-size: 13px; }
+.footer { text-align: center; color: #9895aa; font-size: 11px; padding: 25px 0 8px; }
+.back-btn { border: 0; background: transparent; color: var(--purple-dark); font-weight: 750; padding: 0; margin: 0 0 18px; font-size: 12px; }
+.pill { display: inline-block; padding: 5px 9px; border-radius: 999px; background: var(--pale); color: var(--purple-dark); font-size: 10px; font-weight: 750; }
+.muted { color: var(--muted); font-size: 12px; }
+
+@media (min-width: 1200px) {
+  .content { padding: 38px 42px; }
+  .topic-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .sidebar { display: none; top: 60px; bottom: 0; width: min(290px, 85vw); }
+  .sidebar.open { display: block; }
+  .mobile-top { display: flex; height: 60px; align-items: center; justify-content: space-between; padding: 0 16px; background: white; position: sticky; top: 0; z-index: 30; }
+  .mobile-brand { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 800; }
+  .mobile-brand .brand-mark { width: 34px; height: 34px; }
+  .menu-toggle { width: 39px; height: 39px; border: 1px solid var(--border); border-radius: 10px; background: white; }
+  .main { margin-left: 0; }
+  .desktop-menu-toggle { display: none; }
+  .topbar { top: 60px; height: 55px; padding: 0 16px; }
+  .search { width: 48%; padding: 9px; }
+  .content { padding: 23px 16px; }
+  .hero { padding: 20px; }
+  .hero-mark img { width: 100px; height: 100px; }
+  .topic-grid, .maker-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topic-image { height: 115px; }
+}
+
+@media (max-width: 420px) {
+  .topic-grid, .maker-grid { grid-template-columns: 1fr; }
+  .topic-image { height: 165px; }
+  .hero { display: block; }
+  .hero-mark { display: none; }
+}
 </style>
 </head>
+
 <body>
 <div class="app">
-  <div class="mobile-top">
-    <div class="mobile-brand"><span class="brand-mark">21</span><span>21st Century Voices</span></div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+<div class="mobile-top">
+  <div class="mobile-brand">
+    <span class="brand-mark">21</span>
+    <span>21st Century Voices</span>
   </div>
-  <aside class="sidebar" id="sidebar">
-    <div class="brand"><div class="brand-mark">21</div><div><div class="brand-name">21st Century Voices</div><div class="brand-sub">A blog for curious minds</div></div></div>
-    <div class="nav-label">MAIN MENU</div>
-    <button class="nav-btn active" data-page="home"><span class="nav-icon">H</span>Home</button>
-    <button class="nav-btn" data-page="topics"><span class="nav-icon">T</span>Topics</button>
-    <button class="nav-btn" data-page="makers"><span class="nav-icon">M</span>Makers</button>
-    <div class="nav-label">EXPLORE TOPICS</div>
-    <div id="sidebarTopics"></div>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <div class="topbar-left"><button class="desktop-menu-toggle" id="desktopMenuToggle" aria-label="Toggle navigation" aria-expanded="true">☰</button><div class="crumb">Community Blog <span>/</span> <strong id="breadcrumb">Home</strong></div></div>
-      <input class="search" id="searchInput" type="search" placeholder="Search topics..." aria-label="Search topics">
-    </header>
-    <div class="content">
-      <section id="homePage">
-        <div class="eyebrow">READ · REFLECT · CONNECT</div>
-        <h1 class="page-title">21st Century Voices</h1>
-        <p class="lead">Explore literature across time, share your ideas, and learn from your community.</p>
-        <div class="hero"><div><span class="pill">WELCOME TO OUR COMMUNITY</span><h2>Every story gives us a new perspective.</h2><p>Discover Philippine and world literature—from early oral traditions to the digital age. Choose a topic and join the discussion.</p><div style="margin-top:17px"><button class="btn" data-goto="topics">Explore all topics</button></div></div><div class="hero-mark" aria-hidden="true"><img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=500&q=80" alt="Open book and reading" style="width:150px;height:150px;object-fit:cover;border-radius:18px;box-shadow:0 8px 25px #4b368022"></div></div>
-        <div class="section-head"><h2>Explore literature topics</h2><button class="back-btn" data-goto="topics">View all topics →</button></div>
-        <div class="topic-grid" id="homeTopics"></div>
-        <div class="footer">21st Century Voices · Learn, think, and share respectfully.</div>
-      </section>
-
-      <section id="topicsPage" class="hidden">
-        <div class="eyebrow">EXPLORE & DISCUSS</div><h1 class="page-title">Literature Topics</h1><p class="lead">Choose any topic to read its discussion and share your own idea.</p>
-        <div class="topic-grid" id="allTopics" style="margin-top:24px"></div>
-        <div class="footer">21st Century Voices · Learn, think, and share respectfully.</div>
-      </section>
-
-      <section id="discussionPage" class="hidden">
-        <button class="back-btn" data-goto="topics">← Back to all topics</button>
-        <div class="eyebrow" id="topicEyebrow">LITERATURE TOPIC</div><h1 class="page-title" id="topicTitle"></h1><p class="lead" id="topicSubtitle"></p>
-        <div class="section-head"><h2>Read & reflect</h2><span class="pill" id="topicPill"></span></div>
-        <article class="panel"><div class="reading-label">DISCUSSION QUESTION</div><p class="reading-text" id="topicDescription"></p></article>
-        <div class="section-head"><h2>Community ideas</h2><span class="muted" id="commentCount">Loading comments...</span></div>
-        <div class="comments" id="commentsList"><div class="empty">Loading comments...</div></div>
-        <div class="panel"><h3>Share your idea</h3><p class="muted" style="margin-top:0">Add your perspective to the discussion. Be thoughtful and respectful.</p>
-          <form id="commentForm" class="form-grid">
-            <div><label class="field-label" for="displayName">Your name</label><input class="field" id="displayName" maxlength="60" placeholder="Enter a display name" required></div>
-            <div><label class="field-label" for="commentText">Your comment</label><textarea class="field" id="commentText" rows="4" maxlength="2000" placeholder="What do you think about this topic?" required></textarea></div>
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><button class="btn" id="postButton" type="submit">Post comment</button><span class="status" id="formStatus" role="status"></span></div>
-          </form>
-        </div>
-        <div class="footer">21st Century Voices · Learn, think, and share respectfully.</div>
-      </section>
-
-      <section id="makersPage" class="hidden">
-        <div class="eyebrow">BEHIND THE PROJECT</div><h1 class="page-title">Meet the Makers</h1><p class="lead">The people and purpose behind 21st Century Voices.</p>
-        <div class="hero"><div><span class="pill">OUR PURPOSE</span><h2>Making literature a shared experience.</h2><p>This community blog helps learners explore literary periods, exchange ideas, and appreciate how stories reflect society and human experiences.</p></div><div class="hero-mark" aria-hidden="true"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=500&q=80" alt="People working together" style="width:150px;height:150px;object-fit:cover;border-radius:18px;box-shadow:0 8px 25px #4b368022"></div></div>
-        <div class="maker-grid">
-          <article class="maker-card"><div class="maker-avatar">GR</div><h3>Greg Miguel Serrano Robles</h3><p>Project Maker</p></article>
-          <article class="maker-card"><div class="maker-avatar">DS</div><h3>Dennis T. Salvador</h3><p>Project Maker</p></article>
-          <article class="maker-card"><div class="maker-avatar">LA</div><h3>Lance Andrew Cueno Arata</h3><p>Project Maker</p></article>
-          <article class="maker-card"><div class="maker-avatar">LT</div><h3>Lance Alverius Tianco</h3><p>Project Maker</p></article>
-        </div>
-        <div class="footer">21st Century Voices · Learn, think, and share respectfully.</div>
-      </section>
-    </div>
-  </main>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">☰</button>
 </div>
 
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-mark">21</div>
+    <div>
+      <div class="brand-name">21st Century Voices</div>
+      <div class="brand-sub">A blog for curious minds</div>
+    </div>
+  </div>
+
+  <div class="nav-label">MAIN MENU</div>
+  <button class="nav-btn active" data-page="home">Home</button>
+  <button class="nav-btn" data-page="topics">Topics</button>
+  <button class="nav-btn" data-page="makers">Makers</button>
+
+  <div class="nav-label">EXPLORE TOPICS</div>
+  <div id="sidebarTopics"></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="desktop-menu-toggle" id="desktopMenuToggle">☰</button>
+    <div class="crumb">Community Blog / <strong id="breadcrumb">Home</strong></div>
+  </div>
+  <input class="search" id="searchInput" type="search" placeholder="Search topics...">
+</header>
+
+<div class="content">
+
+<section id="homePage">
+  <div class="eyebrow">READ · REFLECT · CONNECT</div>
+  <h1 class="page-title">21st Century Voices</h1>
+  <p class="lead">Explore literature across time, share your ideas, and learn from your community.</p>
+
+  <div class="hero">
+    <div>
+      <span class="pill">WELCOME TO OUR COMMUNITY</span>
+      <h2>Every story gives us a new perspective.</h2>
+      <p>Discover Philippine and world literature—from early oral traditions to the digital age.</p>
+      <button class="btn" data-goto="topics">Explore all topics</button>
+    </div>
+    <div class="hero-mark">
+      <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=500&q=80" alt="Books">
+    </div>
+  </div>
+
+  <div class="section-head"><h2>Explore literature topics</h2></div>
+  <div class="topic-grid" id="homeTopics"></div>
+</section>
+
+<section id="topicsPage" class="hidden">
+  <div class="eyebrow">EXPLORE & DISCUSS</div>
+  <h1 class="page-title">Literature Topics</h1>
+  <p class="lead">Choose a topic to read and share your ideas.</p>
+  <div class="topic-grid" id="allTopics"></div>
+</section>
+
+<section id="discussionPage" class="hidden">
+  <button class="back-btn" data-goto="topics">← Back to all topics</button>
+  <div class="eyebrow">LITERATURE TOPIC</div>
+  <h1 class="page-title" id="topicTitle"></h1>
+  <p class="lead" id="topicSubtitle"></p>
+
+  <div class="section-head"><h2>Read & reflect</h2><span class="pill" id="topicPill"></span></div>
+  <article class="panel">
+    <div class="reading-label">DISCUSSION QUESTION</div>
+    <p class="reading-text" id="topicDescription"></p>
+  </article>
+
+  <div class="section-head"><h2>Community ideas</h2><span class="muted" id="commentCount"></span></div>
+  <div class="comments" id="commentsList"></div>
+
+  <div class="panel">
+    <h3>Share your idea</h3>
+    <form id="commentForm" class="form-grid">
+      <div>
+        <label class="field-label" for="displayName">Your name</label>
+        <input class="field" id="displayName" maxlength="60" required>
+      </div>
+      <div>
+        <label class="field-label" for="commentText">Your comment</label>
+        <textarea class="field" id="commentText" rows="4" maxlength="2000" required></textarea>
+      </div>
+      <div>
+        <button class="btn" id="postButton" type="submit">Post comment</button>
+        <span class="status" id="formStatus"></span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="makersPage" class="hidden">
+  <div class="eyebrow">BEHIND THE PROJECT</div>
+  <h1 class="page-title">Meet the Makers</h1>
+  <p class="lead">The people behind 21st Century Voices.</p>
+
+  <div class="maker-grid">
+    <article class="maker-card"><div class="maker-avatar">GR</div><h3>Greg Miguel Serrano Robles</h3><p>Project Maker</p></article>
+    <article class="maker-card"><div class="maker-avatar">DS</div><h3>Dennis T. Salvador</h3><p>Project Maker</p></article>
+    <article class="maker-card"><div class="maker-avatar">LA</div><h3>Lance Andrew Cueno Arata</h3><p>Project Maker</p></article>
+    <article class="maker-card"><div class="maker-avatar">LT</div><h3>Lance Alverius Tianco</h3><p>Project Maker</p></article>
+  </div>
+</section>
+
+<div class="footer">21st Century Voices · Learn, think, and share respectfully.</div>
+</div>
+</main>
+</div>
+
+
 <script>
-/*
-  SUPABASE SETUP:
-  Keep your existing project URL and publishable/anon key here.
-  Never put a Supabase service_role/secret key in public website code.
-*/
 const SUPABASE_URL = "https://xhlewbkbmqrcjudfnkcs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_H3ewt2s9EjrxMd6jNYJiHg_OLg-OgEk";
 
 const topics = [
- {id:"21st-century-literature",image:"https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=85",title:"21st Century Literature",short:"Explore modern Philippine and world literature in the digital age.",description:"21st century literature includes contemporary forms and styles such as digital texts, blogs, spoken word poetry, graphic narratives, and works shared online. Writers explore identity, technology, culture, inequality, and everyday experiences. Discussion question: How does 21st century literature reflect the experiences and issues of people today?"},
- {id:"pre-colonial-period",image:"https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=80",title:"Pre-Colonial Period",short:"Discover oral traditions, myths, epics, and early Filipino storytelling.",description:"Pre-colonial Philippine literature was shared through oral traditions, including myths, legends, riddles, proverbs, chants, and epics. These works preserved beliefs, values, history, and community knowledge. Discussion question: What can pre-colonial oral literature teach us about the beliefs and way of life of early Filipinos?"},
- {id:"spanish-period",image:"https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=900&q=80",title:"Spanish Period",short:"Explore religious writings and literary works shaped by Spanish colonization.",description:"During the Spanish period, literature was influenced by Christianity, colonial rule, and new writing forms. Religious texts, pasyon, awit, corrido, and later reformist writings became important. Discussion question: How did Spanish colonization influence the themes and purpose of Philippine literature?"},
- {id:"american-period",image:"https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=900&q=80",title:"American Period",short:"Learn how English education influenced Philippine writing.",description:"During the American period, English became an important language of education and literature. Filipino writers explored poetry, short stories, essays, and novels while responding to changing social and political conditions. Discussion question: How did the introduction of English affect Filipino writers and literary expression?"},
- {id:"japanese-period",image:"https://images.unsplash.com/photo-1528360983277-13d401dccd2d?auto=format&fit=crop&w=900&q=80",title:"Japanese Period",short:"Examine literature created during wartime and occupation.",description:"During the Japanese occupation, censorship and wartime conditions shaped Philippine literature. Filipino writers used local languages, and forms such as haiku and tanaga gained attention. Discussion question: How can literature express the struggles, hopes, and experiences of people during wartime?"},
- {id:"oral-literature-and-epics",image:"https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=900&q=80",title:"Oral Literature and Epics",short:"Explore stories and poems passed from generation to generation.",description:"Oral literature is passed from one generation to another through speaking, singing, and performance. Epics tell of heroes, journeys, values, and the history of communities. Discussion question: Why is it important to preserve oral stories and epics in modern society?"},
- {id:"literature-and-nationalism",image:"https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=900&q=80",title:"Literature and Nationalism",short:"Understand how writing can express identity and inspire social change.",description:"Literature can express love for one's country, question injustice, and encourage people to reflect on their identity and rights. Writers have used poems, essays, stories, and novels to inspire social awareness. Discussion question: In what ways can literature help build national identity and encourage change?"},
- {id:"poetry-across-periods",image:"https://images.unsplash.com/photo-1455390582262-044c1d7a5b6e?auto=format&fit=crop&w=900&q=80",title:"Poetry Across Periods",short:"Compare poetic forms, themes, and voices across literary history.",description:"Poetry changes as languages, cultures, and societies change. From oral chants and traditional forms to free verse and spoken word, poets use rhythm, imagery, and emotion to communicate ideas. Discussion question: What changes and similarities can you identify in poetry across different periods?"},
- {id:"novels-and-short-stories",image:"https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=80",title:"Novels and Short Stories",short:"Explore characters, conflicts, and themes in narrative writing.",description:"Novels and short stories use characters, settings, and conflicts to explore personal and social experiences. They can entertain readers while helping them understand different perspectives. Discussion question: How can fictional characters and stories help readers understand real-life issues?"},
- {id:"digital-and-contemporary-literature",image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",title:"Digital and Contemporary Literature",short:"Discover online storytelling, blogs, web fiction, and new literary forms.",description:"Digital and contemporary literature uses technology and new platforms to share stories and ideas. Blogs, online fiction, interactive narratives, and social media poetry can reach readers quickly and invite participation. Discussion question: How has digital technology changed the way people create, share, and experience literature?"}
+  {id:1, slug:"21st-century-literature", title:"21st Century Literature", short:"Explore modern Philippine and world literature.", description:"How does 21st century literature reflect people's experiences today?", image:"https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=85"},
+  {id:2, slug:"pre-colonial-period", title:"Pre-Colonial Period", short:"Discover oral traditions, myths, and epics.", description:"What can pre-colonial literature teach us about early Filipinos?", image:"https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=80"},
+  {id:3, slug:"spanish-period", title:"Spanish Period", short:"Explore literature during Spanish colonization.", description:"How did Spanish colonization influence Philippine literature?", image:"https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=900&q=80"},
+  {id:4, slug:"american-period", title:"American Period", short:"Learn how English influenced Filipino writing.", description:"How did English affect Filipino writers?", image:"https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=900&q=80"},
+  {id:5, slug:"japanese-period", title:"Japanese Period", short:"Explore literature during wartime.", description:"How can literature express people's struggles during wartime?", image:"https://images.unsplash.com/photo-1528360983277-13d401dccd2d?auto=format&fit=crop&w=900&q=80"},
+  {id:6, slug:"oral-literature-and-epics", title:"Oral Literature and Epics", short:"Explore stories passed between generations.", description:"Why is preserving oral literature important?", image:"https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=900&q=80"},
+  {id:7, slug:"literature-and-nationalism", title:"Literature and Nationalism", short:"Discover writing that expresses identity.", description:"How can literature encourage social change?", image:"https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=900&q=80"},
+  {id:8, slug:"poetry-across-periods", title:"Poetry Across Periods", short:"Compare poetry across literary history.", description:"What similarities can you find in poetry across periods?", image:"https://images.unsplash.com/photo-1455390582262-044c1d7a5b6e?auto=format&fit=crop&w=900&q=80"},
+  {id:9, slug:"novels-and-short-stories", title:"Novels and Short Stories", short:"Explore characters and conflicts.", description:"How can fictional stories help us understand real life?", image:"https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=80"},
+  {id:10, slug:"digital-and-contemporary-literature", title:"Digital and Contemporary Literature", short:"Discover online storytelling and digital writing.", description:"How has technology changed literature?", image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"}
 ];
 
 const $ = id => document.getElementById(id);
 let currentTopic = topics[0];
-let localComments = {};
-let supabaseReady = false;
 let supabaseClient = null;
 
-function topicImage(index){
-  // Real photography served by Unsplash; requires an internet connection.
-  return topics[index]?.image || "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=80";
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  }[c]));
 }
-function topicCard(t,i){return `<button class="topic-card" data-topic="${t.id}"><img class="topic-image" src="${topicImage(i)}" alt="Illustration for ${escapeHTML(t.title)}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=80'"><span class="topic-card-copy"><span class="topic-num">${String(i+1).padStart(2,"0")}</span><h3>${escapeHTML(t.title)}</h3><p>${escapeHTML(t.short)}</p></span></button>`}
-function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function renderTopicCards(){
-  $("homeTopics").innerHTML=topics.slice(0,4).map(topicCard).join("");
-  $("allTopics").innerHTML=topics.map(topicCard).join("");
-  $("sidebarTopics").innerHTML=topics.map((t,i)=>`<button class="nav-btn" data-topic="${t.id}"><span class="nav-icon">${String(i+1).padStart(2,"0")}</span>${escapeHTML(t.title)}</button>`).join("");
+
+function topicCard(t, i) {
+  return `<button class="topic-card" data-topic="${t.slug}">
+    <img class="topic-image" src="${t.image}" alt="${escapeHTML(t.title)}" loading="lazy">
+    <div class="topic-card-copy">
+      <span class="topic-num">${String(i+1).padStart(2,"0")}</span>
+      <h3>${escapeHTML(t.title)}</h3>
+      <p>${escapeHTML(t.short)}</p>
+    </div>
+  </button>`;
 }
-function showPage(page){
-  ["homePage","topicsPage","discussionPage","makersPage"].forEach(id=>$(id).classList.add("hidden"));
-  const target={home:"homePage",topics:"topicsPage",discussion:"discussionPage",makers:"makersPage"}[page]||"homePage";
-  $(target).classList.remove("hidden");
-  $("breadcrumb").textContent=page==="discussion"?currentTopic.title:({home:"Home",topics:"Topics",makers:"Makers"}[page]||"Home");
-  document.querySelectorAll(".nav-btn[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
-  $("sidebar").classList.remove("open");$("menuToggle").setAttribute("aria-expanded","false");$("menuToggle").textContent="☰";
-  window.scrollTo({top:0,behavior:"smooth"});
+
+function renderTopics() {
+  $("homeTopics").innerHTML = topics.slice(0,4).map(topicCard).join("");
+  $("allTopics").innerHTML = topics.map(topicCard).join("");
+  $("sidebarTopics").innerHTML = topics.map((t,i) =>
+    `<button class="nav-btn" data-topic="${t.slug}">
+      <span class="nav-icon">${i+1}</span>${escapeHTML(t.title)}
+    </button>`
+  ).join("");
 }
-function openTopic(id){
-  const t=topics.find(x=>x.id===id);if(!t)return;
-  currentTopic=t;$("topicTitle").textContent=t.title;$("topicSubtitle").textContent=t.short;
-  $("topicDescription").textContent=t.description;$("topicPill").textContent="Topic "+String(topics.indexOf(t)+1).padStart(2,"0");
-  showPage("discussion");loadComments();
+
+function showPage(page) {
+  ["homePage","topicsPage","discussionPage","makersPage"]
+    .forEach(id => $(id).classList.add("hidden"));
+
+  const pages = {
+    home:"homePage", topics:"topicsPage",
+    discussion:"discussionPage", makers:"makersPage"
+  };
+
+  $(pages[page] || "homePage").classList.remove("hidden");
+  $("breadcrumb").textContent =
+    page === "discussion" ? currentTopic.title :
+    page.charAt(0).toUpperCase() + page.slice(1);
+
+  document.querySelectorAll("[data-page]").forEach(b =>
+    b.classList.toggle("active", b.dataset.page === page)
+  );
+
+  $("sidebar").classList.remove("open");
+  window.scrollTo({top:0, behavior:"smooth"});
 }
-async function setupSupabase(){
-  if(!SUPABASE_URL.startsWith("https://")||!SUPABASE_KEY){return}
-  try{
-    if(!window.supabase){await new Promise((resolve,reject)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}
-    supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);supabaseReady=true;
-  }catch(e){console.warn("Supabase could not load; using local-only comments.",e)}
+
+async function openTopic(slug) {
+  const topic = topics.find(t => t.slug === slug);
+  if (!topic) return;
+
+  currentTopic = topic;
+  $("topicTitle").textContent = topic.title;
+  $("topicSubtitle").textContent = topic.short;
+  $("topicDescription").textContent = topic.description;
+  $("topicPill").textContent = "Topic " + topic.id;
+
+  showPage("discussion");
+  await loadComments();
 }
-function renderComments(items){
-  $("commentCount").textContent=items.length+" "+(items.length===1?"comment":"comments");
-  if(!items.length){$("commentsList").innerHTML='<div class="empty">No comments yet. Be the first to share an idea.</div>';return}
-  $("commentsList").innerHTML=items.map(c=>`<article class="comment"><div class="comment-head"><span class="comment-name">${escapeHTML(c.name||c.display_name||"Community member")}</span><span class="comment-date">${escapeHTML(formatDate(c.created_at))}</span></div><p class="comment-body">${escapeHTML(c.comment||c.content||"")}</p></article>`).join("");
+
+function formatDate(value) {
+  if (!value) return "Just now";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "" :
+    date.toLocaleString();
 }
-function formatDate(value){if(!value)return "Just now";const d=new Date(value);return Number.isNaN(d.getTime())?"":d.toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"})}
-async function loadComments(){
-  $("commentsList").innerHTML='<div class="empty">Loading comments...</div>';
-  if(supabaseReady){
-    // Expected table columns: id, topic_id, name, comment, created_at.
-    const {data,error}=await supabaseClient.from("comments").select("*").eq("topic_id",currentTopic.id).order("created_at",{ascending:false});
-    if(!error){renderComments((data||[]).map(c=>({name:c.name||c.display_name,comment:c.comment||c.content,created_at:c.created_at})));return}
-    console.error("Supabase comments read error:",error);
-    $("formStatus").textContent="Database error. Check your Supabase table and policies.";
+
+function renderComments(items) {
+  $("commentCount").textContent = items.length +
+    (items.length === 1 ? " comment" : " comments");
+
+  $("commentsList").innerHTML = items.length
+    ? items.map(c => `<article class="comment">
+        <div class="comment-head">
+          <span class="comment-name">${escapeHTML(c.author_name)}</span>
+          <span class="comment-date">${escapeHTML(formatDate(c.created_at))}</span>
+        </div>
+        <p class="comment-body">${escapeHTML(c.comment)}</p>
+      </article>`).join("")
+    : '<div class="empty">No comments yet. Be the first to share an idea.</div>';
+}
+
+async function loadComments() {
+  $("commentsList").innerHTML =
+    '<div class="empty">Loading comments...</div>';
+
+  const {data, error} = await supabaseClient
+    .from("topic_comments")
+    .select("*")
+    .eq("topic_id", currentTopic.id)
+    .order("created_at", {ascending:false});
+
+  if (error) {
+    console.error("Comment loading error:", error);
+    $("commentsList").innerHTML =
+      '<div class="empty">Unable to load comments. Check the database table and policies.</div>';
+    return;
   }
-  renderComments(localComments[currentTopic.id]||[]);
+
+  renderComments(data || []);
 }
-async function postComment(event){
+
+async function postComment(event) {
   event.preventDefault();
-  const name=$("displayName").value.trim(),comment=$("commentText").value.trim();
-  if(!name||!comment)return;
-  const button=$("postButton");button.disabled=true;$("formStatus").textContent="Posting...";
-  if(supabaseReady){
-    // Expected table columns: topic_id (text), name (text), comment (text).
-    const {error}=await supabaseClient.from("comments").insert({topic_id:currentTopic.id,name,comment});
-    if(!error){$("commentText").value="";$("formStatus").textContent="Comment posted.";await loadComments();button.disabled=false;return}
-    console.error("Supabase comment insert error:",error);
-    $("formStatus").textContent="Could not post. Check the comments table and INSERT policy.";
-    button.disabled=false;return;
+
+  const name = $("displayName").value.trim();
+  const comment = $("commentText").value.trim();
+  if (!name || !comment) return;
+
+  const button = $("postButton");
+  button.disabled = true;
+  $("formStatus").textContent = "Posting...";
+
+  const {error} = await supabaseClient
+    .from("topic_comments")
+    .insert({
+      topic_id: currentTopic.id,
+      author_name: name,
+      comment: comment
+    });
+
+  button.disabled = false;
+
+  if (error) {
+    console.error("Comment insert error:", error);
+    $("formStatus").textContent = "Could not post: " + error.message;
+    return;
   }
-  // Fallback only: local comments do not sync between devices and may disappear.
-  if(!localComments[currentTopic.id])localComments[currentTopic.id]=[];
-  localComments[currentTopic.id].unshift({name,comment,created_at:new Date().toISOString()});
-  $("commentText").value="";$("formStatus").textContent="Saved on this device only. Connect Supabase to share across devices.";
-  renderComments(localComments[currentTopic.id]);button.disabled=false;
+
+  $("commentText").value = "";
+  $("formStatus").textContent = "Comment posted successfully.";
+  await loadComments();
 }
-renderTopicCards();
-document.addEventListener("click",event=>{
-  const pageBtn=event.target.closest("[data-page]");if(pageBtn){showPage(pageBtn.dataset.page);return}
-  const topicBtn=event.target.closest("[data-topic]");if(topicBtn){openTopic(topicBtn.dataset.topic);return}
-  const goto=event.target.closest("[data-goto]");if(goto){showPage(goto.dataset.goto);return}
-});
-function toggleNavigation(){
-  if(window.matchMedia("(max-width: 760px)").matches){
-    const open=$("sidebar").classList.toggle("open");
-    $("menuToggle").setAttribute("aria-expanded",String(open));$("menuToggle").textContent=open?"×":"☰";
-  }else{
-    const hidden=document.querySelector(".app").classList.toggle("sidebar-hidden");
-    $("sidebar").classList.toggle("collapsed",hidden);
-    $("desktopMenuToggle").setAttribute("aria-expanded",String(!hidden));
-    $("desktopMenuToggle").textContent=hidden?"☰":"×";
+
+async function initSupabase() {
+  try {
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+    script.onload = async () => {
+      supabaseClient = window.supabase.createClient(
+        SUPABASE_URL, SUPABASE_KEY
+      );
+      await loadCommentsIfNeeded();
+    };
+    script.onerror = () => {
+      $("formStatus").textContent = "Could not load Supabase.";
+    };
+    document.head.appendChild(script);
+  } catch (error) {
+    console.error(error);
   }
 }
-$("menuToggle").addEventListener("click",toggleNavigation);
-$("desktopMenuToggle").addEventListener("click",toggleNavigation);
-$("commentForm").addEventListener("submit",postComment);
-$("searchInput").addEventListener("input",()=>{
-  const q=$("searchInput").value.trim().toLowerCase();
-  if(q){showPage("topics");$("allTopics").innerHTML=topics.map(topicCard).filter((html,i)=>{const t=topics[i];return (t.title+" "+t.short+" "+t.description).toLowerCase().includes(q)}).join("");if(!$("allTopics").innerHTML)$("allTopics").innerHTML='<div class="empty">No topics found. Try another keyword.</div>'}
-  else{$("allTopics").innerHTML=topics.map(topicCard).join("")}
+
+async function loadCommentsIfNeeded() {
+  if (!$("discussionPage").classList.contains("hidden")) {
+    await loadComments();
+  }
+}
+
+document.addEventListener("click", event => {
+  const pageButton = event.target.closest("[data-page]");
+  if (pageButton) {
+    showPage(pageButton.dataset.page);
+    return;
+  }
+
+  const topicButton = event.target.closest("[data-topic]");
+  if (topicButton) {
+    openTopic(topicButton.dataset.topic);
+    return;
+  }
+
+  const goto = event.target.closest("[data-goto]");
+  if (goto) showPage(goto.dataset.goto);
 });
-setupSupabase();
+
+$("commentForm").addEventListener("submit", async event => {
+  if (!supabaseClient) {
+    event.preventDefault();
+    $("formStatus").textContent = "Supabase is still connecting. Try again.";
+    return;
+  }
+  await postComment(event);
+});
+
+$("menuToggle").addEventListener("click", () => {
+  $("sidebar").classList.toggle("open");
+});
+
+$("desktopMenuToggle").addEventListener("click", () => {
+  $("sidebar").classList.toggle("collapsed");
+  document.querySelector(".app").classList.toggle("sidebar-hidden");
+});
+
+$("searchInput").addEventListener("input", () => {
+  const query = $("searchInput").value.trim().toLowerCase();
+  showPage("topics");
+  $("allTopics").innerHTML = topics
+    .filter(t => (t.title + " " + t.short).toLowerCase().includes(query))
+    .map(topicCard).join("");
+});
+
+renderTopics();
+initSupabase();
 </script>
 </body>
 </html>
