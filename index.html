@@ -66,11 +66,17 @@
 <script type="module">
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-// STEP 1: Replace these two placeholders with your Supabase project details.
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
-const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
-const supabaseConfigured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
-const supabase = supabaseConfigured ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const SUPABASE_URL = "https://xhlewbkbmqrcjudfnkcs.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_H3ewt2s9EjrxMd6jNYJiHg_OLg-OgEk";
+
+const supabaseConfigured =
+  SUPABASE_URL.startsWith("https://") &&
+  !SUPABASE_URL.includes("PASTE_") &&
+  !SUPABASE_ANON_KEY.includes("PASTE_");
+
+const supabase = supabaseConfigured
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
 
 const topics=[
 {id:"21st-century",icon:"01",category:"21st Century Literature",title:"21st Century Literature",description:"Explore modern Philippine and world literature in the digital age.",prompt:"How does 21st century literature reflect the experiences and issues of people today?",body:"21st century literature includes contemporary forms and styles such as digital texts, blogs, spoken word poetry, graphic narratives, and works shared online. Writers explore identity, technology, culture, inequality, and everyday experiences. Discussion question: How does 21st century literature reflect the experiences and issues of people today?"},
