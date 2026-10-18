@@ -197,8 +197,24 @@ function formatDate(value) {
 }
 function renderComments(items) {
   $("commentCount").textContent = items.length + (items.length===1?" comment":" comments");
-  $("commentsList").innerHTML = items.length ? items.map(c => `<article class="comment"><div class="comment-head"><span class="comment-name">${escapeHTML(c.author_name)}</span><span class="comment-date">${escapeHTML(formatDate(c.created_at))}</span></div><p class="comment-body">${escapeHTML(c.comment)}</p></article>`).join("") : '<div class="empty">No comments yet. Be the first to share an idea.</div>';
-}
+$("commentsList").innerHTML = items.length
+  ? items.map(c => `
+      <article class="comment">
+        <div class="comment-head">
+          <span class="comment-name">
+            ${escapeHTML(c.author_name || "Anonymous")}
+          </span>
+          <span class="comment-date">
+            ${escapeHTML(formatDate(c.created_at))}
+          </span>
+        </div>
+        <p class="comment-body">
+          ${escapeHTML(c.comment)}
+        </p>
+      </article>
+    `).join("")
+  : '<div class="empty">No comments yet. Be the first to share an idea.</div>';
+
 async function loadComments() {
   const requestId = ++commentsRequest;
   const topicId = Number(currentTopic.id);
@@ -212,7 +228,7 @@ async function loadComments() {
     return;
   }
   $("commentsList").innerHTML = '<div class="empty">Loading comments...</div>';
-  const {data,error} = await supabaseClient.from("topic_comments").select("*").eq("topic_id",topicId);
+  const {data,error} = await supabaseClient.from("topic_comments").select("*").eq("topic_id", topic.slug)
   if (requestId !== commentsRequest || Number(currentTopic.id) !== topicId) return;
   if (error) {
     console.error("Comment loading error:",error);
@@ -239,16 +255,21 @@ async function postComment(event) {
   $("formStatus").textContent = "Posting...";
   try {
     const topicId = Number(currentTopic.id);
-    const {error} = await supabaseClient.from("topic_comments").insert({
-      topic_id: topicId,
-      author_name: name,
-      comment: comment
-    });
-    if (error) {
-      console.error("Comment insert error:",error);
-      $("formStatus").textContent = "Could not post: " + error.message;
-      return;
-    }
+
+const { data, error } = await supabase
+  .from('topic_comments')
+  .insert({
+  topic_id: topicId,
+  "author name": userName,
+  comment: commentText
+});
+
+if (error) {
+  console.error("Comment insert error:", error);
+  $("formStatus").textContent = "Could not post: " + error.message;
+  return;
+}
+
     $("commentText").value = "";
     $("formStatus").textContent = "Comment posted successfully.";
     await loadComments();
