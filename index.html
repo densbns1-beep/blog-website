@@ -78,6 +78,25 @@ body{background:radial-gradient(circle at 78% 0%,rgba(109,74,255,.13),transparen
 @media(max-width:760px){.sidebar{background:#1c162c;box-shadow:15px 0 40px rgba(0,0,0,.3)}.mobile-brand{color:#f7f3ff}.topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topic-image{height:125px}.hero{background:linear-gradient(135deg,#2a2042,#20182f)}}
 @media(max-width:420px){.topic-grid,.maker-grid{grid-template-columns:1fr}.topic-image{height:165px}.hero{display:block}.hero-mark{display:none}}
 
+
+/* ADDED: Information section, comment states, mobile safety */
+html,body{max-width:100%;overflow-x:hidden}img{max-width:100%}
+.main,.content,.panel,.comment,.topic-card{min-width:0}.content{overflow-wrap:anywhere}
+.topic-card{transition:transform .15s,border-color .15s,background .15s}
+.topbar-left{min-width:0;flex:1}.crumb{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.info-panel{border-left:3px solid #9b7bff}
+.info-overview{font-size:14px;line-height:1.7;color:#d7cee8;margin:0 0 6px}
+.info-heading{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#c0aaff;margin:20px 0 8px!important}
+.info-list{margin:0;padding-left:20px;color:#d7cee8;font-size:13.5px;line-height:1.65}.info-list li{margin:0 0 7px}
+.info-terms{margin:0;display:grid;gap:8px}.info-terms dt{font-weight:750;font-size:13.5px;color:#f1eaff}
+.info-terms dd{margin:0 0 4px;padding:0 0 0 12px;border-left:2px solid rgba(167,139,250,.35);color:#d7cee8;font-size:13.5px;line-height:1.6}
+.status.ok{color:#8be9b0}.status.err{color:#ff9aa8}
+.field-hint{display:block;font-size:11px;color:var(--muted);margin-top:5px}
+.link-btn{background:none;border:0;padding:0;color:#c7b5ff;text-decoration:underline;font-size:inherit}
+.comment-note{font-size:11px;color:var(--muted);margin:0 0 12px}
+.comment-count-pill{white-space:nowrap}
+@media(max-width:760px){.info-overview,.info-list,.info-terms dd,.info-terms dt{font-size:14px}.topbar{gap:8px}}
+
 </style>
 </head>
 <body>
@@ -106,13 +125,17 @@ body{background:radial-gradient(circle at 78% 0%,rgba(109,74,255,.13),transparen
 <section id="topicsPage" class="hidden"><div class="eyebrow">EXPLORE & DISCUSS</div><h1 class="page-title">Literature Topics</h1><p class="lead">Choose a topic to read and share your ideas.</p><div class="topic-grid" id="allTopics"></div></section>
 <section id="discussionPage" class="hidden">
   <button class="back-btn" data-goto="topics">← Back to all topics</button><div class="eyebrow">LITERATURE TOPIC</div><h1 class="page-title" id="topicTitle"></h1><p class="lead" id="topicSubtitle"></p>
-  <div class="section-head"><h2>Read & reflect</h2><span class="pill" id="topicPill"></span></div>
+  <div class="section-head"><h2>Information</h2><span class="pill" id="topicPill"></span></div>
+  <article class="panel info-panel"><div class="reading-label">LEARN ABOUT THE TOPIC</div><div id="topicInfo"></div></article>
+  <div class="section-head"><h2>Read &amp; reflect</h2></div>
   <article class="panel"><div class="reading-label">DISCUSSION QUESTION</div><p class="reading-text" id="topicDescription"></p></article>
-  <div class="section-head"><h2>Community ideas</h2><span class="muted" id="commentCount"></span></div><div class="comments" id="commentsList"></div>
-  <div class="panel"><h3>Share your idea</h3><form id="commentForm" class="form-grid">
-    <div><label class="field-label" for="displayName">Your name</label><input class="field" id="displayName" maxlength="60" required></div>
-    <div><label class="field-label" for="commentText">Your comment</label><textarea class="field" id="commentText" rows="4" maxlength="2000" required></textarea></div>
-    <div><button class="btn" id="postButton" type="submit">Post comment</button><span class="status" id="formStatus"></span></div>
+  <div class="section-head"><h2>Community idea</h2><span class="muted comment-count-pill" id="commentCount"></span></div>
+  <p class="comment-note">Names are chosen by the people who post (or auto-generated when left blank). They are not verified identities.</p>
+  <div class="comments" id="commentsList"></div>
+  <div class="panel"><h3>Share your idea</h3><form id="commentForm" class="form-grid" novalidate>
+    <div><label class="field-label" for="displayName">Your name (optional)</label><input class="field" id="displayName" maxlength="60" autocomplete="nickname"><span class="field-hint">Leave blank and a friendly username like PurpleReader482 will be created for this comment.</span></div>
+    <div><label class="field-label" for="commentText">Your comment</label><textarea class="field" id="commentText" rows="4" maxlength="2000"></textarea></div>
+    <div><button class="btn" id="postButton" type="submit">Post comment</button><span class="status" id="formStatus" role="status" aria-live="polite"></span></div>
   </form></div>
 </section>
 <section id="makersPage" class="hidden">
@@ -150,157 +173,551 @@ const topics = [
 
 ];
 
+
+/* ============================================================
+   INFORMATION SECTION CONTENT (one entry per topic, keyed by slug)
+   Each entry: overview, facts[], terms[[term, meaning]], examples[], significance
+   ============================================================ */
+const topicInfo = {
+"21st-century-literature":{
+ overview:"21st century literature refers to works written from the year 2001 onward. It is shaped by globalization, migration, the internet, and social movements, so it often mixes genres, languages, and media. In the Philippines it is studied in Senior High School through the subject 21st Century Literature from the Philippines and the World.",
+ facts:[
+  "Writers publish in many forms: novels, short stories, poems, essays, graphic novels, blogs, e-books, and social media posts.",
+  "Common themes include identity, migration and overseas work, family, gender, mental health, climate and environment, technology, and social justice.",
+  "Regional literature is celebrated: writers use Filipino, English, and regional languages such as Ilocano, Cebuano, Hiligaynon, and Waray.",
+  "Self-publishing and online platforms let new writers reach readers without a traditional publisher.",
+  "Hybrid and experimental forms (for example, mixing prose, poetry, images, and documents) are common."
+ ],
+ terms:[
+  ["Globalization","The growing connection of cultures, economies, and ideas around the world."],
+  ["Diaspora literature","Writing by or about people who live away from their homeland."],
+  ["Hybrid genre","A work that blends forms, such as prose poetry or a novel told through emails and posts."]
+ ],
+ examples:[
+  "Ilustrado by Miguel Syjuco (a novel about a Filipino writer's life and death, and the Filipino diaspora)",
+  "Insurrecto by Gina Apostol (a novel that plays with history and storytelling)",
+  "In the Country by Mia Alvar (short stories about Filipinos at home and abroad)",
+  "Half of a Yellow Sun by Chimamanda Ngozi Adichie (world literature about war and identity)"
+ ],
+ significance:"Reading recent literature helps students connect classic ideas to the issues they face today and shows that anyone with a story can become a writer."
+},
+"pre-colonial-period":{
+ overview:"The Pre-Colonial Period covers Philippine literature before the Spanish arrived (Magellan reached the islands in 1521, and Spain began its lasting settlement in 1565). Literature at this time was mostly oral: stories, songs, and sayings were memorized, performed, and passed down by elders, chanters, and storytellers.",
+ facts:[
+  "Early Filipinos had their own belief systems, often centered on nature spirits, ancestors, and deities such as Bathala (in Tagalog belief).",
+  "Many communities used baybayin, a syllabic writing system, though most literature was still shared by voice.",
+  "The Laguna Copperplate Inscription (dated 900 CE) is the earliest known written document found in the Philippines.",
+  "Literature reflected daily life: farming, fishing, courtship, weddings, harvests, wars, and rituals.",
+  "Because stories were retold by many people, versions changed from place to place."
+ ],
+ terms:[
+  ["Bugtong","A riddle that tests wit and observation."],
+  ["Salawikain","A proverb that teaches a lesson or value."],
+  ["Awiting-bayan","A folk song, such as a lullaby (oyayi), work song, or love song."],
+  ["Epic","A long narrative about the adventures of a hero (see Oral Literature and Epics)."]
+ ],
+ examples:[
+  "Creation stories such as the Tagalog tale of Malakas and Maganda",
+  "Riddles, proverbs, and chants from different regions",
+  "Epics such as Biag ni Lam-ang (Ilocano), Hudhud (Ifugao), and Ibalong (Bikol)"
+ ],
+ significance:"Pre-colonial literature shows the values, humor, and wisdom of early Filipinos and gives modern readers a way to understand their cultural roots."
+},
+"spanish-period":{
+ overview:"The Spanish Period (1565–1898) brought Christianity, the Spanish language, and the printing press to the Philippines. Early literature was mostly religious and controlled by the friars, but over time Filipino writers used poetry, plays, and novels to express love, faith, and later a desire for reform and freedom.",
+ facts:[
+  "The Doctrina Cristiana (1593) is the first book printed in the Philippines, written in Spanish and Tagalog.",
+  "Religious works such as the pasyon (the story of Christ's suffering) became very popular; an early Tagalog pasyon was written by Gaspar Aquino de Belen in 1704.",
+  "Metrical romances called awit (12 syllables per line) and korido (8 syllables per line) told stories of kings, knights, and adventure.",
+  "Folk and stage traditions such as the komedya (moro-moro), senakulo, and zarzuela entertained and taught audiences.",
+  "In the late 1800s the Propaganda Movement used essays and novels to call for reforms, and the Katipunan later used writing to inspire revolution."
+ ],
+ terms:[
+  ["Pasyon","A narrative poem chanted during Holy Week about the life and death of Jesus."],
+  ["Awit and korido","Verse romances; the awit is slower and in 12-syllable lines, the korido in 8-syllable lines."],
+  ["Propaganda Movement","A group of Filipino reformers in Spain who wrote for greater rights, publishing La Solidaridad (1889–1895)."]
+ ],
+ examples:[
+  "Florante at Laura by Francisco Balagtas (an awit, written around 1838, with hidden criticism of oppression)",
+  "Noli Me Tangere (1887) and El Filibusterismo (1891) by Jose Rizal",
+  "Urbana at Felisa by Modesto de Castro (letters teaching good conduct)",
+  "Ninay by Pedro Paterno (1885), often called the first Filipino novel",
+  "Pag-ibig sa Tinubuang Lupa, a patriotic poem attributed to Andres Bonifacio"
+ ],
+ significance:"Spanish-period literature shows how Filipinos adapted foreign forms and later turned them into tools for identity, protest, and nation-building."
+},
+"american-period":{
+ overview:"The American Period (1898–1946) began after the Treaty of Paris and continued through the Commonwealth era until independence in 1946. Public schools were set up with English as the medium of instruction, and American teachers called Thomasites arrived in 1901. Filipinos began writing in English while others kept writing in Tagalog and other languages.",
+ facts:[
+  "English-language writing grew in schools and student publications, leading to new Filipino writers in English.",
+  "New forms such as the modern short story, the free-verse poem, and the critical essay became popular.",
+  "Tagalog literature continued, including novels, plays, and poetry that often criticized colonial rule or social problems.",
+  "The Commonwealth Literary Contests (starting in 1940) encouraged excellent writing in English, Tagalog, and Spanish.",
+  "Newspapers and magazines helped spread stories and poems to a wider public."
+ ],
+ terms:[
+  ["Balagtasan","A debate in verse, named after Balagtas; the first one was held in 1924."],
+  ["Free verse","Poetry without a fixed rhyme or meter."],
+  ["Commonwealth period","The 1935–1946 period of self-government under U.S. supervision before independence."]
+ ],
+ examples:[
+  "“Dead Stars” by Paz Marquez-Benitez (1925), often called an early landmark of the Filipino short story in English",
+  "“How My Brother Leon Brought Home a Wife” by Manuel Arguilla (1940)",
+  "Banaag at Sikat by Lope K. Santos (1906), a Tagalog novel about social classes",
+  "Poetry by Jose Garcia Villa, known for his bold style and “comma poems”",
+  "Kahapon, Ngayon at Bukas by Aurelio Tolentino (1903), a play with a nationalist message"
+ ],
+ significance:"The period expanded Filipino literature into English and new forms, while also raising important questions about language, identity, and preserving local traditions."
+},
+"japanese-period":{
+ overview:"The Japanese Period (1942–1945) covers the occupation of the Philippines during World War II. The occupiers controlled newspapers, radio, and publishing, and they discouraged the use of English. Literature in Tagalog and other Philippine languages gained space, but writers worked under censorship and the dangers of war.",
+ facts:[
+  "Japan's forces captured Manila in January 1942, and a Japanese-sponsored Second Republic was set up in 1943.",
+  "Publications were censored, and many English-language publications were closed, so writers in English had fewer outlets.",
+  "Tagalog and other Philippine-language writing received more attention, and Japanese forms such as the haiku influenced local poets.",
+  "Stage plays became a major form of entertainment when other media were restricted.",
+  "Some writers produced propaganda, while others hid resistance and patriotic feelings between the lines or wrote in secret."
+ ],
+ terms:[
+  ["Censorship","Government control over what may be written or published."],
+  ["Haiku","A short Japanese poem, traditionally 17 syllables in a 5-7-5 pattern."],
+  ["Tanaga","A Filipino four-line poem with seven syllables per line."]
+ ],
+ examples:[
+  "Short stories and poems about hunger, fear, hiding, and survival",
+  "“Lupang Tinubuan” by Narciso G. Reyes, often studied among stories about this period",
+  "Manuel Arguilla, a well-known short story writer, was executed by the Japanese in 1944",
+  "Haiku and tanaga written in Filipino languages"
+ ],
+ significance:"Literature from this period records the courage, suffering, and hopes of ordinary Filipinos, and it helps us understand how war affects language, freedom, and creativity."
+},
+"oral-literature-and-epics":{
+ overview:"Oral literature is literature that is spoken, chanted, or sung rather than written. It is memorized and passed from one generation to the next. Epics are long narrative poems about heroes, gods, and great journeys, and in many Philippine communities they are still performed today.",
+ facts:[
+  "Oral works usually have no single known author; they belong to the community and may exist in many versions.",
+  "Forms include myths, legends, folktales, proverbs, riddles, chants, songs, and epics.",
+  "Performers use rhythm, repetition, and formulas to help them remember very long stories.",
+  "Epics are often performed at rituals such as harvests, weddings, and funerals, and they can take hours or days to recite.",
+  "Many oral traditions are endangered when young people stop learning them or when elders pass away."
+ ],
+ terms:[
+  ["Epic","A long poem or narrative about a hero's deeds and the values of a people."],
+  ["Oral tradition","The passing of stories, songs, and knowledge by word of mouth."],
+  ["Chanter","A performer who recites or sings a story from memory."]
+ ],
+ examples:[
+  "Hudhud of the Ifugao, chanted mostly by women, and Darangen of the Maranao (both recognized by UNESCO)",
+  "Biag ni Lam-ang, an Ilocano epic traditionally linked to the blind poet Pedro Bukaneg",
+  "Ibalong of Bikol, with the heroes Baltog, Handyong, and Bantong",
+  "Hinilawod of Panay, featuring the hero Labaw Donggon",
+  "World examples: the Epic of Gilgamesh, the Iliad and the Odyssey, the Mahabharata, and Beowulf"
+ ],
+ significance:"Oral literature preserves history, beliefs, and values. Recording it with the permission of the community and learning it respectfully helps keep cultural identity alive."
+},
+"literature-and-nationalism":{
+ overview:"Nationalism is love for one's nation and pride in its culture, along with the desire for its freedom and progress. In literature, nationalism appears when writers celebrate their people's identity, expose injustice, or call for change. Many literary works have helped shape movements for independence and social reform.",
+ facts:[
+  "Writers can promote nationalism through patriotic poems, novels that reveal social problems, essays, speeches, songs, and plays.",
+  "During the Spanish period, reformist and revolutionary writers used print to awaken Filipino national consciousness.",
+  "In the American period and later, writers explored independence, identity, labor, and inequality.",
+  "During martial law (1972–1981 and its aftermath), many writers addressed oppression and human rights, sometimes at great personal risk.",
+  "Nationalist literature is not limited to the past; today writers address poverty, corruption, migration, and the environment."
+ ],
+ terms:[
+  ["Nationalism","Devotion to one's nation and its culture, interests, and independence."],
+  ["Protest literature","Writing that challenges injustice and calls for change."],
+  ["Social realism","A style that portrays the struggles of ordinary people and society honestly."]
+ ],
+ examples:[
+  "Noli Me Tangere and El Filibusterismo by Jose Rizal; his poem “Mi Ultimo Adios”",
+  "Pag-ibig sa Tinubuang Lupa, attributed to Andres Bonifacio",
+  "America Is in the Heart by Carlos Bulosan (1946), about Filipino workers in America",
+  "Mga Ibong Mandaragit by Amado V. Hernandez, about oppression and justice",
+  "Dekada '70 by Lualhati Bautista, a novel about a family during martial law",
+  "Things Fall Apart by Chinua Achebe, a world classic about colonial change in Nigeria"
+ ],
+ significance:"Literature gives a voice to people's hopes and struggles and reminds readers that words can inspire action, empathy, and responsibility toward one's community."
+},
+"poetry-across-periods":{
+ overview:"Poetry is a form of literature that uses rhythm, imagery, and carefully chosen words to express feelings and ideas. Across history, poetry has moved from chanted oral verse to written verse in print, and now to spoken word and digital poems. Each period reflects the language, values, and concerns of its time.",
+ facts:[
+  "Pre-colonial poetry included riddles, proverbs, chants, and short verses such as the tanaga and the Mangyan ambahan.",
+  "Spanish-period poetry included the awit and korido, religious verse, and patriotic poems of the revolution.",
+  "American-period poets experimented with English and free verse, while the Balagtasan kept the Filipino debate-in-verse tradition alive.",
+  "Japanese influence in the 1940s encouraged the writing of haiku and similar short forms.",
+  "Contemporary poetry includes free verse, spoken word and poetry slams, and short poems shared online."
+ ],
+ terms:[
+  ["Stanza","A group of lines in a poem, like a paragraph in prose."],
+  ["Imagery","Language that appeals to the senses (sight, sound, touch, taste, smell)."],
+  ["Figurative language","Expressions such as simile, metaphor, and personification that go beyond literal meaning."],
+  ["Tone and mood","The poet's attitude (tone) and the feeling the poem creates in the reader (mood)."]
+ ],
+ examples:[
+  "Tanaga: four lines, seven syllables each, usually with the same end rhyme",
+  "Haiku: three short lines, traditionally 5-7-5 syllables, focused on a moment in nature",
+  "Florante at Laura by Francisco Balagtas (narrative poetry in the awit form)",
+  "Contemporary Filipino poets such as Gemino Abad and Merlie Alunan",
+  "Spoken-word performances and online poetry"
+ ],
+ significance:"Comparing poems from different periods shows that people have always used poetry to share love, grief, protest, and hope, even as language and form change."
+},
+"novels-and-short-stories":{
+ overview:"Novels and short stories are works of fiction that tell stories through characters, settings, and events. A novel is long and can follow many characters and subplots. A short story is brief and usually focuses on one main event, a few characters, and a single effect.",
+ facts:[
+  "Plot usually follows a pattern: exposition, rising action, climax, falling action, and resolution.",
+  "Conflict can be internal (a character struggles with themself) or external (against another person, society, nature, or fate).",
+  "Point of view tells us who narrates: first person, third person limited, or omniscient.",
+  "Characters may be round (complex and changing) or flat (simple and unchanging), and dynamic (they change) or static (they stay the same).",
+  "Theme is the central idea or message about life, not just the topic of the story."
+ ],
+ terms:[
+  ["Protagonist and antagonist","The main character and the force or character that opposes them."],
+  ["Setting","The time and place of the story, which can shape mood and meaning."],
+  ["Symbolism","Using an object, person, or event to represent a larger idea."]
+ ],
+ examples:[
+  "Noli Me Tangere by Jose Rizal (novel) and Banaag at Sikat by Lope K. Santos (novel)",
+  "“Dead Stars” by Paz Marquez-Benitez and “How My Brother Leon Brought Home a Wife” by Manuel Arguilla (short stories)",
+  "The Woman Who Had Two Navels by Nick Joaquin (novel)",
+  "Dekada '70 by Lualhati Bautista (novel)",
+  "Smaller and Smaller Circles by F.H. Batacan (a Filipino crime novel in English, first published in 2002)"
+ ],
+ significance:"Fiction lets readers experience lives different from their own, which builds empathy and helps them think about choices, values, and social issues."
+},
+"digital-and-contemporary-literature":{
+ overview:"Digital literature is writing that is created, published, or experienced through digital technology. It includes both traditional works shared online and new forms that depend on the computer or phone, such as interactive stories. Contemporary literature in this space is fast-moving, social, and often created by readers as well as authors.",
+ facts:[
+  "Platforms such as Wattpad (launched in 2006) let writers post stories chapter by chapter and get immediate reader feedback.",
+  "Some Filipino online stories became published books and films, such as Diary ng Panget and She's Dating the Gangster (both adapted in 2014).",
+  "Forms include blogs, e-books, web novels, fan fiction, webcomics, Instagram poetry, micro-fiction, audio stories, and interactive fiction.",
+  "Digital works can be updated, translated, and shared instantly, but they can also disappear when websites close.",
+  "Readers must practice digital literacy: checking sources, respecting copyright, and avoiding plagiarism."
+ ],
+ terms:[
+  ["Hypertext fiction","A story in which readers click links to choose their path, such as Michael Joyce's “afternoon, a story” from the late 1980s."],
+  ["Fan fiction","Stories written by fans using characters or worlds from existing works."],
+  ["Plagiarism","Using someone else's words or ideas without credit."],
+  ["Digital divide","The gap between people who have access to technology and the internet and those who do not."]
+ ],
+ examples:[
+  "Wattpad stories and web novels",
+  "Instagram poetry and short posts",
+  "Webcomics and visual novels",
+  "Blogs and online literary magazines"
+ ],
+ significance:"Technology gives new writers a platform and lets readers join the conversation, but it also asks everyone to read and write responsibly."
+},
+"drama-and-theater":{
+ overview:"Drama is literature written to be performed by actors on a stage. Instead of a narrator, the story is told mainly through dialogue and action. Theater brings the script to life through acting, set design, costumes, lighting, and music.",
+ facts:[
+  "Aristotle named six elements of drama: plot, character, thought (theme), diction (language), melody (music), and spectacle.",
+  "A play is divided into acts and scenes, and the script includes stage directions that describe actions, movement, and setting.",
+  "Main genres include tragedy, comedy, melodrama, farce, and tragicomedy.",
+  "Western drama traces back to ancient Greek festivals honoring Dionysus, with playwrights like Sophocles, while Shakespeare is a major figure in English drama.",
+  "In the Philippines, early performance traditions included rituals and dances; the Spanish period added the komedya, senakulo, and zarzuela; the American period brought bodabil and modern plays."
+ ],
+ terms:[
+  ["Dialogue","The words spoken between characters."],
+  ["Monologue and soliloquy","A long speech by one character; a soliloquy is when a character speaks thoughts aloud, alone on stage."],
+  ["Stage directions","Instructions in the script about movement, sound, lighting, and setting."],
+  ["Blocking","The planned positions and movements of actors on stage."]
+ ],
+ examples:[
+  "Senakulo, a Lenten play about the passion of Christ",
+  "Walang Sugat by Severino Reyes, a Tagalog zarzuela",
+  "Kahapon, Ngayon at Bukas by Aurelio Tolentino",
+  "A Portrait of the Artist as Filipino by Nick Joaquin",
+  "Modern Philippine theater groups such as PETA (founded 1967) and Tanghalang Pilipino",
+  "Oedipus Rex by Sophocles and Hamlet by William Shakespeare"
+ ],
+ significance:"Theater makes ideas visible and immediate; a live performance can create shared emotion and discussion that reading alone may not."
+},
+"myths-legends-and-folktales":{
+ overview:"Myths, legends, and folktales are traditional stories that carry a community's beliefs, values, and memories. They were first told aloud and are still retold in books, films, and online. Although they differ in purpose, all of them help people explain the world and teach how to live in it.",
+ facts:[
+  "A myth is a sacred or symbolic story about gods, creation, or natural events.",
+  "A legend is a story about a hero, a place, or an event that may be rooted in history but has grown through retelling.",
+  "A folktale is a traditional story told to entertain and teach, often featuring animals, tricksters, or ordinary people; it includes fables and fairy tales.",
+  "Similar patterns, such as flood stories, creation stories, tricksters, and heroic journeys, appear in many cultures.",
+  "Tales should be retold respectfully, giving credit to the community they come from and avoiding mocking sacred beliefs."
+ ],
+ terms:[
+  ["Etiological tale","A story that explains how or why something came to be (also called an origin or “pourquoi” tale)."],
+  ["Trickster","A clever character who breaks rules and teaches lessons, like Anansi in West African stories."],
+  ["Archetype","A recurring character type or pattern, such as the hero or the wise elder."]
+ ],
+ examples:[
+  "Myths: Malakas and Maganda (creation of the first man and woman in Tagalog tradition)",
+  "Legends: Mariang Makiling, the legend of Mayon Volcano, and the many “Alamat” stories explaining the origin of things like the pineapple",
+  "Folktales: Juan Tamad and “The Monkey and the Turtle”",
+  "World traditions: Greek, Norse, and Japanese myths, and Anansi stories",
+  "Damiana Eugenio's Philippine Folk Literature: An Anthology collects many Philippine tales"
+ ],
+ significance:"These stories keep cultural memory alive and show how communities explain nature, teach values, and share hopes across generations."
+},
+"literary-criticism-and-analysis":{
+ overview:"Literary analysis means examining how a work is built and what it means. Literary criticism goes further by interpreting and evaluating works, often using a particular approach or theory. Strong analysis goes beyond summary: it makes a claim about the work and supports it with evidence from the text.",
+ facts:[
+  "Close reading means paying attention to word choice, imagery, structure, tone, and patterns in the text.",
+  "Different critical approaches highlight different things: the text itself, the author's life, history, society, gender, power, or the reader's response.",
+  "A good analytical paragraph often follows: point, evidence (quote or detail), explanation, and link back to the claim.",
+  "Two readers can interpret the same work differently, but interpretations must be supported by evidence.",
+  "Considering context, such as when and where the work was written, can deepen understanding."
+ ],
+ terms:[
+  ["Theme vs. subject","The subject is the topic (for example, war); the theme is what the work says about it (for example, war destroys innocence)."],
+  ["Irony","A contrast between what is said or expected and what actually happens (verbal, situational, or dramatic)."],
+  ["Motif","A repeated image, idea, or detail that supports the theme."],
+  ["Thesis","The main claim an analysis argues."]
+ ],
+ examples:[
+  "Formalist (New Criticism): focus on the text's form and language",
+  "Historical and biographical: connect the work to its time and the author's life",
+  "Feminist, Marxist, and postcolonial: examine gender, class, and colonial power",
+  "Reader-response: study how readers create meaning",
+  "Filipino critics and scholars such as Bienvenido Lumbera and Virgilio Almario, both National Artists for Literature"
+ ],
+ significance:"Analysis trains critical thinking: it helps students read carefully, build arguments, respect other views, and appreciate how literature creates meaning."
+}
+};
+topics.forEach(t => { t.info = topicInfo[t.slug] || null; });
+
+/* ============================================================
+   DATABASE SETTINGS
+   If your Supabase table uses different names, change them HERE only.
+   Expected table: topic_comments
+   ============================================================ */
+const DB = {
+  table: "topic_comments",
+  topicColumn: "topic_id",      // which topic the comment belongs to
+  nameColumn: "author_name",    // displayed name
+  commentColumn: "comment",     // comment text
+  dateColumn: "created_at"      // date (Supabase usually fills this automatically)
+};
+// "id"   -> topic_id stores the number 1 to 13   (default, matches the original posting code)
+// "slug" -> topic_id stores text such as "spanish-period"
+const TOPIC_KEY_TYPE = "id";
+
 const $ = id => document.getElementById(id);
 let currentTopic = topics[0];
 let supabaseClient = null;
+let dbState = "connecting"; // connecting | ready | failed
 let commentsRequest = 0;
+let isPosting = false;
+let lastSignature = "";
+let lastPostTime = 0;
 
 function escapeHTML(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
+function topicKey(topic) {
+  return TOPIC_KEY_TYPE === "slug" ? topic.slug : topic.id;
+}
+
+/* ---------- Random friendly usernames (only when the user leaves the name blank) ---------- */
+const NAME_WORDS = ["Purple","Galaxy","Cosmic","Velvet","Midnight","Starry","Lunar","Amber","Indigo","Silver","Bright","Quiet"];
+const NAME_ROLES = ["Reader","Writer","Poet","Dreamer","Storyteller","Thinker","Scribe","Wanderer","Author","Bookworm"];
+function randomInt(max) {
+  if (window.crypto && window.crypto.getRandomValues) {
+    const a = new Uint32Array(1);
+    window.crypto.getRandomValues(a);
+    return a[0] % max;
+  }
+  return Math.floor(Math.random() * max);
+}
+function generateUsername() {
+  return NAME_WORDS[randomInt(NAME_WORDS.length)] + NAME_ROLES[randomInt(NAME_ROLES.length)] + (100 + randomInt(900));
+}
+
+/* ---------- Topic lists ---------- */
 function topicCard(t, i) {
   return `<button class="topic-card" data-topic="${t.slug}">
     <img class="topic-image" src="${t.image}" alt="${escapeHTML(t.title)}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'">
-    <div class="topic-card-copy"><span class="topic-num">${String(i+1).padStart(2,"0")}</span><h3>${escapeHTML(t.title)}</h3><p>${escapeHTML(t.short)}</p></div>
+    <div class="topic-card-copy"><span class="topic-num">${String(t.id).padStart(2,"0")}</span><h3>${escapeHTML(t.title)}</h3><p>${escapeHTML(t.short)}</p></div>
   </button>`;
+}
+function infoSearchText(t) {
+  const i = t.info;
+  if (!i) return "";
+  return [i.overview, (i.facts||[]).join(" "), (i.terms||[]).map(x => x.join(" ")).join(" "), (i.examples||[]).join(" "), i.significance].join(" ");
+}
+function renderAllTopics() {
+  const query = $("searchInput").value.trim().toLowerCase();
+  const filtered = query ? topics.filter(t => (t.title+" "+t.short+" "+t.description+" "+infoSearchText(t)).toLowerCase().includes(query)) : topics;
+  $("allTopics").innerHTML = filtered.length ? filtered.map(topicCard).join("") : '<div class="empty" style="grid-column:1/-1">No topics found. Try another keyword.</div>';
 }
 function renderTopics() {
   $("homeTopics").innerHTML = topics.slice(0,4).map(topicCard).join("");
-  $("allTopics").innerHTML = topics.map(topicCard).join("");
+  renderAllTopics();
   $("sidebarTopics").innerHTML = topics.map((t,i) => `<button class="nav-btn" data-topic="${t.slug}"><span class="nav-icon">${i+1}</span>${escapeHTML(t.title)}</button>`).join("");
 }
+
+/* ---------- Navigation ---------- */
 function showPage(page) {
   ["homePage","topicsPage","discussionPage","makersPage"].forEach(id => $(id).classList.add("hidden"));
   const pages = {home:"homePage",topics:"topicsPage",discussion:"discussionPage",makers:"makersPage"};
   $(pages[page] || "homePage").classList.remove("hidden");
+  if (page === "topics") renderAllTopics();
   $("breadcrumb").textContent = page === "discussion" ? currentTopic.title : page.charAt(0).toUpperCase()+page.slice(1);
-  document.querySelectorAll("[data-page]").forEach(b => b.classList.toggle("active",b.dataset.page===page));
+  document.querySelectorAll("[data-page]").forEach(b => b.classList.toggle("active", b.dataset.page === page));
+  document.querySelectorAll("#sidebarTopics .nav-btn").forEach(b => b.classList.toggle("active", page === "discussion" && b.dataset.topic === currentTopic.slug));
   $("sidebar").classList.remove("open");
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
+/* ---------- Information section ---------- */
+function renderInfo(topic) {
+  const i = topic.info;
+  const box = $("topicInfo");
+  if (!i) { box.innerHTML = '<div class="empty">Information for this topic is not available yet.</div>'; return; }
+  const list = arr => '<ul class="info-list">' + arr.map(x => `<li>${escapeHTML(x)}</li>`).join("") + "</ul>";
+  box.innerHTML =
+    `<p class="info-overview">${escapeHTML(i.overview)}</p>` +
+    `<h3 class="info-heading">Key facts</h3>${list(i.facts || [])}` +
+    `<h3 class="info-heading">Key terms</h3><dl class="info-terms">` +
+      (i.terms || []).map(t => `<dt>${escapeHTML(t[0])}</dt><dd>${escapeHTML(t[1])}</dd>`).join("") + `</dl>` +
+    `<h3 class="info-heading">Examples to explore</h3>${list(i.examples || [])}` +
+    `<h3 class="info-heading">Why it matters</h3><p class="info-overview">${escapeHTML(i.significance)}</p>`;
+}
+
 async function openTopic(slug) {
   const topic = topics.find(t => t.slug === slug);
   if (!topic) return;
+  if (currentTopic !== topic) $("commentText").value = "";
   currentTopic = topic;
   $("topicTitle").textContent = topic.title;
   $("topicSubtitle").textContent = topic.short;
   $("topicDescription").textContent = topic.description;
   $("topicPill").textContent = "Topic " + topic.id;
-  $("formStatus").textContent = "";
+  renderInfo(topic);
+  setStatus("", "");
   showPage("discussion");
   await loadComments();
+}
+
+/* ---------- Comments ---------- */
+function setStatus(message, type) {
+  const node = $("formStatus");
+  node.textContent = message;
+  node.className = "status" + (type ? " " + type : "");
 }
 function formatDate(value) {
   if (!value) return "Just now";
   const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? "" : date.toLocaleString();
+  if (Number.isNaN(date.getTime())) return "";
+  try { return date.toLocaleString([], {dateStyle:"medium", timeStyle:"short"}); }
+  catch (e) { return date.toLocaleString(); }
 }
 function renderComments(items) {
-  $("commentCount").textContent = items.length + (items.length===1?" comment":" comments");
-$("commentsList").innerHTML = items.length
-  ? items.map(c => `
+  const sorted = items.slice().sort((a,b) => new Date(b[DB.dateColumn] || 0) - new Date(a[DB.dateColumn] || 0));
+  $("commentCount").textContent = sorted.length + (sorted.length === 1 ? " comment" : " comments");
+  $("commentsList").innerHTML = sorted.length
+    ? sorted.map(c => `
       <article class="comment">
         <div class="comment-head">
-          <span class="comment-name">
-            ${escapeHTML(c.author_name || "Anonymous")}
-          </span>
-          <span class="comment-date">
-            ${escapeHTML(formatDate(c.created_at))}
-          </span>
+          <span class="comment-name">${escapeHTML(c[DB.nameColumn] || "Anonymous")}</span>
+          <span class="comment-date">${escapeHTML(formatDate(c[DB.dateColumn]))}</span>
         </div>
-        <p class="comment-body">
-          ${escapeHTML(c.comment)}
-        </p>
-      </article>
-    `).join("")
-  : '<div class="empty">No comments yet. Be the first to share an idea.</div>';
-
+        <p class="comment-body">${escapeHTML(c[DB.commentColumn])}</p>
+      </article>`).join("")
+    : '<div class="empty">No comments yet. Be the first to share an idea for this topic!</div>';
+}
 async function loadComments() {
   const requestId = ++commentsRequest;
-  const topicId = Number(currentTopic.id);
-  if (!Number.isSafeInteger(topicId)) {
-    $("commentsList").innerHTML = '<div class="empty">Invalid topic ID. Please check the topics list.</div>';
-    return;
-  }
+  const topic = currentTopic;
+  const list = $("commentsList");
   if (!supabaseClient) {
-    $("commentsList").innerHTML = '<div class="empty">Connecting to the discussion database...</div>';
     $("commentCount").textContent = "";
+    list.innerHTML = dbState === "failed"
+      ? '<div class="empty">Comments are unavailable because the database could not be reached. Check your internet connection, then <button class="link-btn" data-retry="1">try again</button>.</div>'
+      : '<div class="empty">Connecting to the discussion database...</div>';
     return;
   }
-  $("commentsList").innerHTML = '<div class="empty">Loading comments...</div>';
-  const {data,error} = await supabaseClient.from("topic_comments").select("*").eq("topic_id", topic.slug)
-  if (requestId !== commentsRequest || Number(currentTopic.id) !== topicId) return;
-  if (error) {
-    console.error("Comment loading error:",error);
-    $("commentsList").innerHTML = '<div class="empty">Could not load comments. Check the topic_comments table columns and SELECT policy.</div>';
+  list.innerHTML = '<div class="empty">Loading comments...</div>';
+  try {
+    const { data, error } = await supabaseClient.from(DB.table).select("*").eq(DB.topicColumn, topicKey(topic));
+    if (requestId !== commentsRequest) return;
+    if (error) throw error;
+    renderComments(data || []);
+  } catch (error) {
+    if (requestId !== commentsRequest) return;
+    console.error("Comment loading error:", error);
     $("commentCount").textContent = "";
-    return;
+    list.innerHTML = '<div class="empty">Could not load comments right now.<br><small>' + escapeHTML(error && error.message ? error.message : "Unknown error") +
+      '</small><br><small>Check the table name, column names, and SELECT policy in Supabase, then <button class="link-btn" data-retry="1">try again</button>.</small></div>';
   }
-  renderComments(data || []);
 }
 async function postComment(event) {
   event.preventDefault();
-  if (!supabaseClient) {
-    $("formStatus").textContent = "Database is connecting. Please try again.";
-    return;
-  }
-  const name = $("displayName").value.trim();
+  if (isPosting) return;                       // blocks repeated clicks
+  const topic = currentTopic;
+  const typedName = $("displayName").value.trim();
   const comment = $("commentText").value.trim();
-  if (!name || !comment) {
-    $("formStatus").textContent = "Please enter your name and comment.";
+  if (!comment) { setStatus("Please write a comment before posting.", "err"); $("commentText").focus(); return; }
+  if (!supabaseClient) { setStatus("The database is not connected yet. Check your internet connection and try again.", "err"); return; }
+  const signature = topic.slug + "|" + typedName + "|" + comment;
+  if (signature === lastSignature && Date.now() - lastPostTime < 30000) {
+    setStatus("This comment was just posted. Please wait before posting it again.", "err");
     return;
   }
   const button = $("postButton");
+  isPosting = true;
   button.disabled = true;
-  $("formStatus").textContent = "Posting...";
+  setStatus("Posting...", "");
+  const author = typedName || generateUsername();   // only generated when the name box is empty
+  const row = {};
+  row[DB.topicColumn] = topicKey(topic);
+  row[DB.nameColumn] = author;
+  row[DB.commentColumn] = comment;
   try {
-    const topicId = Number(currentTopic.id);
-
-const { data, error } = await supabase
-  .from('topic_comments')
-  .insert({
-  topic_id: topicId,
-  "author name": userName,
-  comment: commentText
-});
-
-if (error) {
-  console.error("Comment insert error:", error);
-  $("formStatus").textContent = "Could not post: " + error.message;
-  return;
-}
-
+    const { error } = await supabaseClient.from(DB.table).insert(row);
+    if (error) throw error;
+    lastSignature = signature;
+    lastPostTime = Date.now();
     $("commentText").value = "";
-    $("formStatus").textContent = "Comment posted successfully.";
-    await loadComments();
+    setStatus(typedName ? "Comment posted successfully." : "Comment posted successfully as " + author + ".", "ok");
+    if (currentTopic === topic) await loadComments();
   } catch (error) {
-    console.error("Unexpected comment error:",error);
-    $("formStatus").textContent = "A connection error occurred. Please try again.";
+    console.error("Comment insert error:", error);
+    setStatus("Could not post your comment: " + (error && error.message ? error.message : "connection problem") + ". Please try again.", "err");
   } finally {
+    isPosting = false;
     button.disabled = false;
   }
 }
+
+/* ---------- Supabase connection ---------- */
 function initSupabase() {
   const script = document.createElement("script");
   script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-  script.onload = async () => {
+  script.onload = () => {
     try {
       if (!window.supabase) throw new Error("Supabase library did not initialize.");
-      supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-      await loadComments();
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      dbState = "ready";
+      if (!$("discussionPage").classList.contains("hidden")) loadComments();
     } catch (error) {
-      console.error("Supabase initialization error:",error);
-      $("commentsList").innerHTML = '<div class="empty">Unable to connect to the database.</div>';
-      $("formStatus").textContent = "Database connection failed.";
+      console.error("Supabase initialization error:", error);
+      dbState = "failed";
+      if (!$("discussionPage").classList.contains("hidden")) loadComments();
     }
   };
   script.onerror = () => {
-    $("commentsList").innerHTML = '<div class="empty">Unable to load the database connection library.</div>';
-    $("formStatus").textContent = "Could not load Supabase. Check your internet connection.";
+    dbState = "failed";
+    if (!$("discussionPage").classList.contains("hidden")) loadComments();
   };
   document.head.appendChild(script);
 }
-document.addEventListener("click",event => {
+
+/* ---------- Events ---------- */
+document.addEventListener("click", event => {
+  const retry = event.target.closest("[data-retry]");
+  if (retry) {
+    if (!supabaseClient && dbState === "failed") { dbState = "connecting"; initSupabase(); loadComments(); }
+    else loadComments();
+    return;
+  }
   const pageButton = event.target.closest("[data-page]");
   if (pageButton) { showPage(pageButton.dataset.page); return; }
   const topicButton = event.target.closest("[data-topic]");
@@ -308,17 +725,15 @@ document.addEventListener("click",event => {
   const goto = event.target.closest("[data-goto]");
   if (goto) showPage(goto.dataset.goto);
 });
-$("commentForm").addEventListener("submit",postComment);
-$("menuToggle").addEventListener("click",() => $("sidebar").classList.toggle("open"));
-$("desktopMenuToggle").addEventListener("click",() => {
+$("commentForm").addEventListener("submit", postComment);
+$("menuToggle").addEventListener("click", () => $("sidebar").classList.toggle("open"));
+$("desktopMenuToggle").addEventListener("click", () => {
   $("sidebar").classList.toggle("collapsed");
   document.querySelector(".app").classList.toggle("sidebar-hidden");
 });
-$("searchInput").addEventListener("input",() => {
-  const query = $("searchInput").value.trim().toLowerCase();
-  showPage("topics");
-  const filtered = topics.filter(t => (t.title+" "+t.short+" "+t.description).toLowerCase().includes(query));
-  $("allTopics").innerHTML = filtered.length ? filtered.map(topicCard).join("") : '<div class="empty">No topics found. Try another keyword.</div>';
+$("searchInput").addEventListener("input", () => {
+  if ($("topicsPage").classList.contains("hidden")) showPage("topics");
+  else renderAllTopics();
 });
 const yearNode = document.querySelector(".footer");
 if (yearNode) yearNode.innerHTML = "21st Century Voices · Learn, think, and share respectfully. · " + new Date().getFullYear();
